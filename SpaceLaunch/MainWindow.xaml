@@ -5,49 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceLaunch"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600">
+        Title="MainWindow" Height="500" Width="600"
+        ResizeMode="NoResize">
     <Window.Resources>
         <Storyboard x:Key="Leave">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option2">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-560.311">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-400">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseInOut"/>
+                        <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="10"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Option2">
-                <EasingDoubleKeyFrame KeyTime="0" Value="77.821"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="77.821">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseInOut"/>
+                        <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="10"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Option1">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="77.821"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="77.821">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <CircleEase EasingMode="EaseOut"/>
+                        <BackEase EasingMode="EaseIn"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option1">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-400">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <CircleEase EasingMode="EaseOut"/>
+                        <BackEase EasingMode="EaseIn"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Option1">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="602,136,-179,157"/>
-                <EasingThicknessKeyFrame KeyTime="0:0:1.3" Value="210,116,198,157"/>
+                <SplineThicknessKeyFrame KeyTime="0" Value="210,116,198,157"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="210,116,198,157">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CurrentOption">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="CurrentOption">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="CurrentOption">
+                <SplineThicknessKeyFrame KeyTime="0" Value="210,116,198,157"/>
+                <SplineThicknessKeyFrame KeyTime="0:0:1.4" Value="210,116,198,157"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Option2">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.8" Value="604,136,-180,157"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="604,136,-180,157">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ElasticEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Image x:Name="Option1" Margin="602,136,-179,157" Source="Images/planet.png" RenderTransformOrigin="0.5,0.5"  MouseUp="Option_MouseUp"  MouseDown="Option2_MouseDown">
+        <Image x:Name="CurrentOption" Margin="210,136,198,157" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -57,7 +84,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="Option2" Margin="210,116,198,157" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281" MouseUp="Option_MouseUp" MouseDown="Option2_MouseDown">
+        <Image x:Name="Option1" Margin="211,128,197,145" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281" MouseUp="Option_MouseUp" MouseDown="Option2_MouseDown">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -67,5 +94,16 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image x:Name="Option2" Margin="604,136,-180,157" Source="Images/planet2.png" RenderTransformOrigin="0.5,0.5"  MouseUp="Option_MouseUp"  MouseDown="Option2_MouseDown">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Button Content="Test Button DELETE LATER" HorizontalAlignment="Left" Height="63" Margin="94,396,0,0" VerticalAlignment="Top" Width="104" Click="Button_Click"/>
     </Grid>
 </Window>

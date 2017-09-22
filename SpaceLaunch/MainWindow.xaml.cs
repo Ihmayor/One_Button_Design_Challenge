@@ -31,12 +31,6 @@ namespace SpaceLaunch
     //public string SoundPlaying { get; private set; }
     //public bool Stopping { get; set; }
 
-    private Dictionary<string, int> ScaledNotes = new Dictionary<string, int> { { "A",440 }, { "B", 494 }, {"C",524 },
-        { "D",587 }, "E":659, "F":698, "G":784, "A2":880,
-                                                                                  "B2":988, "C2":1046 };
-
-
-
     public partial class MainWindow : Window
     {
         private DateTime savedTick;
@@ -46,6 +40,13 @@ namespace SpaceLaunch
         private Timer holdNoteTimer;
         private SoundPlayer[] ahSound;
         private int streamNum;
+        private int currentNote;
+        private string[] loadedOption = new string[] { "planet.png", "planet2.png" };
+        int currOptInd;
+        private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A",440 }, { "B", 494 }, {"C",524 },
+                                                                                  {"D",587 }, {"E", 659}, {"F",698}, {"G",784}, {"A2",880},
+                                                                                  {"B2",988}, {"C2",1046 } };
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,33 +58,23 @@ namespace SpaceLaunch
             savedTick = DateTime.Now;
             ahSound = new SoundPlayer[] { new SoundPlayer("a.wav"), new SoundPlayer("a.wav") };
             streamNum = 0;
+            currentNote = 0;
+            currOptInd = 0;
             ahSound[streamNum].Load();
-            ahSound[ahSound.Length-1].Load();
+            ahSound[ahSound.Length - 1].Load();
         }
 
-        public void NextOption()
+
+
+
+
+        private void PlayTone(string Note)
         {
-            //Set Visible Carousel Option to cover Single Option
-            //Reset to original state
-
-            //Load Next Option in second part of carousel
-            //
-
-            //Trigger Animation
-            Storyboard leave = FindResource("Leave") as Storyboard;
-            leave.Begin();
-
-            //Overlay Option Image
-
-            //Recover Carousel and pull back
-        }
-
-        private void PlayTone(int frequency)
-        {
+            int frequency = ScaleNotes[Note];
             stopPlaying = false;
             while (!stopPlaying)
             {
-                Console.Beep(frequency,50000);
+                Console.Beep(frequency, 50000);
             }
         }
 
@@ -99,7 +90,7 @@ namespace SpaceLaunch
             DateTime currTick = DateTime.Now;
             int diff = currTick.Millisecond - savedTick.Millisecond;
             savedTick = currTick;
-            soundThread = new Thread(new ThreadStart(()=> { PlayTone(524); }));
+            soundThread = new Thread(new ThreadStart(() => { PlayTone("D"); }));
             soundThread.Start();
         }
 
@@ -118,5 +109,49 @@ namespace SpaceLaunch
 
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            NextOption();
+        }
+
+        public void NextOption()
+        {
+
+            //Increase Index and make sure it loops around
+            currOptInd++;
+            currOptInd %= loadedOption.Length;
+
+            //Set Visible Carousel Option to cover Single Option
+            //Reset to original state
+            Option1.Visibility = Visibility.Hidden;
+            Option2.Visibility = Visibility.Hidden;
+            Storyboard leave = FindResource("Leave") as Storyboard;
+            leave.Seek(TimeSpan.Zero, TimeSeekOrigin.BeginTime);
+            CurrentOption.Visibility = Visibility.Hidden;
+            Option1.Visibility = Visibility.Visible;
+            Option2.Visibility = Visibility.Visible;
+
+
+            //Load Next Option in second part of carousel
+            Option2.Source = new BitmapImage(new Uri(@"/images/"+loadedOption[currOptInd], UriKind.Relative));
+
+
+            //Trigger Animation
+            leave.Begin();
+            leave.Completed += LeaveOption_Completed;
+        
+            //Recover Carousel and pull back
+        }
+
+        private void LeaveOption_Completed(object sender, EventArgs e)
+        {
+            //Ensure that when the carousel rolls back it loads up the 'current image'
+            Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
+        
+            //Overlay Option Image
+            CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
+            CurrentOption.Visibility = Visibility.Visible;
+        }
     }
 }
