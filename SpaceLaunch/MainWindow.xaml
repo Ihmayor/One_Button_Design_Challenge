@@ -9,18 +9,17 @@
         ResizeMode="NoResize">
     <Window.Resources>
         <Storyboard x:Key="Leave">
-
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option1" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option1">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-500"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="-500"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="-500"/>
             </DoubleAnimationUsingKeyFrames>
-
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option2"  RepeatBehavior="Forever">
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="500"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="500"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="500"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
@@ -51,7 +50,7 @@
                     <ScaleTransform/>
                     <SkewTransform/>
                     <RotateTransform/>
-                    <TranslateTransform X="500"/>
+                    <TranslateTransform x:Name="ChangeThis" X="500"/>
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>

@@ -37,15 +37,14 @@ namespace SpaceLaunch
         private bool firstClick;
         private bool isHeld;
         private bool stopPlaying;
-        private Timer holdNoteTimer;
+        private DispatcherTimer timer;
         private SoundPlayer[] ahSound;
         private int streamNum;
         private int currentNote;
         private string[] loadedOption = new string[] { "planet.png", "planet2.png" };
         int currOptInd;
-        private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A",440 }, { "B", 494 }, {"C",524 },
-                                                                                  {"D",587 }, {"E", 659}, {"F",698}, {"G",784}, {"A2",880},
-                                                                                  {"B2",988}, {"C2",1046 } };
+        private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A",440 }, { "B", 494 }, {"C",524 },{"D",587 }, {"E", 659}, {"F",698}, {"G",784}, {"A2",880}, {"B2",988}, {"C2",1046 } };
+        private Storyboard leave;
 
         public MainWindow()
         {
@@ -62,11 +61,18 @@ namespace SpaceLaunch
             currOptInd = 0;
             ahSound[streamNum].Load();
             ahSound[ahSound.Length - 1].Load();
+            finishedAnim = true;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(400);
+            timer.Tick += Timer_Tick;
+            leave = FindResource("Leave") as Storyboard;
+            leave.Completed += LeaveOption_Completed;
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
 
-
-
+        }
 
         private void PlayTone(string Note)
         {
@@ -115,9 +121,12 @@ namespace SpaceLaunch
             NextOption();
         }
 
+        private bool finishedAnim;
+
         public void NextOption()
         {
-
+            if (!finishedAnim)
+                return;
             //Increase Index and make sure it loops around
             currOptInd++;
             currOptInd %= loadedOption.Length;
@@ -126,10 +135,6 @@ namespace SpaceLaunch
             //Reset to original state
             Option1.Visibility = Visibility.Hidden;
             Option2.Visibility = Visibility.Hidden;
-            Storyboard leave = FindResource("Leave") as Storyboard;
-            leave.Seek(TimeSpan.Zero, TimeSeekOrigin.BeginTime);
-            Option2.BeginAnimation(Image.RenderTransformProperty, null);
-            leave.Stop();
             CurrentOption.Visibility = Visibility.Hidden;
             Option1.Visibility = Visibility.Visible;
             Option2.Visibility = Visibility.Visible;
@@ -137,24 +142,24 @@ namespace SpaceLaunch
             //Load Next Option in second part of carousel
             Option2.Source = new BitmapImage(new Uri(@"/images/"+loadedOption[currOptInd], UriKind.Relative));
 
-
             //Trigger Animation
             leave.Begin();
-            leave.Completed += LeaveOption_Completed;
-        
+            finishedAnim = false;
             //Recover Carousel and pull back
         }
 
         private void LeaveOption_Completed(object sender, EventArgs e)
         {
-            //Ensure that when the carousel rolls back it loads up the 'current image'
             Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
-        
+
             //Overlay Option Image
             CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
-          //  CurrentOption.Visibility = Visibility.Visible;
+            CurrentOption.Visibility = Visibility.Visible;
             Option1.Visibility = Visibility.Hidden;
             Option2.Visibility = Visibility.Hidden;
+            finishedAnim = true;
+            //Ensure that when the carousel rolls back it loads up the 'current image'
+
         }
     }
 }
