@@ -54,6 +54,5 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Button Content="Test Button DELETE LATER" HorizontalAlignment="Left" Height="63" Margin="94,396,0,0" VerticalAlignment="Top" Width="104" Click="Button_Click"/>
     </Grid>
 </Window>
