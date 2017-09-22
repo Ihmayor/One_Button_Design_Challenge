@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -33,18 +34,30 @@ namespace SpaceLaunch
 
     public partial class MainWindow : Window
     {
-        private DateTime savedTick;
-        private bool firstClick;
-        private bool isHeld;
-        private bool stopPlaying;
-        private DispatcherTimer timer;
-        private SoundPlayer[] ahSound;
-        private int streamNum;
-        private int currentNote;
+        //Carousel Animation
+        private Storyboard leave;
         private string[] loadedOption = new string[] { "planet.png", "planet2.png" };
         int currOptInd;
-        private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A",440 }, { "B", 494 }, {"C",524 },{"D",587 }, {"E", 659}, {"F",698}, {"G",784}, {"A2",880}, {"B2",988}, {"C2",1046 } };
-        private Storyboard leave;
+
+        //Interaction
+        private bool firstClick;
+        private bool isHeld;
+
+        //Sound
+        private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A", 440 }, { "B", 494 }, { "C", 524 }, { "D", 587 }, { "E", 659 }, { "F", 698 }, { "G", 784 }, { "A2", 880 }, { "B2", 988 }, { "C2", 1046 } };
+        private int currentNoteIndex;
+        private string noteSelected;
+        
+        //Sound Thread + Timing
+        private Stopwatch watch;
+        private Thread soundThread;
+        private SoundPlayer[] ahSound;
+        private int streamNum;
+        private bool stopPlaying;
+        private DateTime savedTick;
+
+        private DispatcherTimer timer;
+
 
         public MainWindow()
         {
@@ -57,7 +70,7 @@ namespace SpaceLaunch
             savedTick = DateTime.Now;
             ahSound = new SoundPlayer[] { new SoundPlayer("a.wav"), new SoundPlayer("a.wav") };
             streamNum = 0;
-            currentNote = 0;
+            currentNoteIndex = 0;
             currOptInd = 0;
             ahSound[streamNum].Load();
             ahSound[ahSound.Length - 1].Load();
@@ -67,7 +80,13 @@ namespace SpaceLaunch
             timer.Tick += Timer_Tick;
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
+            Thread.Sleep(2000);
+            NextOption();
+            noteSelect = "D";
+
+            watch = new Stopwatch(); 
         }
+
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -80,7 +99,7 @@ namespace SpaceLaunch
             stopPlaying = false;
             while (!stopPlaying)
             {
-                Console.Beep(frequency, 50000);
+                Console.Beep(frequency, 100000);
             }
         }
 
@@ -88,42 +107,63 @@ namespace SpaceLaunch
         {
             stopPlaying = true;
         }
-        Thread soundThread;
-        private void Option2_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
+            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
+        }
+
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            watch.Start();
+            savedTick = watch.ElapsedMilliseconds;
+
+            noteSelect = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
+            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
             isHeld = true;
-            Console.WriteLine(((Image)sender).Name);
-            DateTime currTick = DateTime.Now;
-            int diff = currTick.Millisecond - savedTick.Millisecond;
-            savedTick = currTick;
-            soundThread = new Thread(new ThreadStart(() => { PlayTone("D"); }));
+         
+            // PlayTone(noteSelect);
+            soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelect); }));
             soundThread.Start();
         }
 
-        private void Option_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Console.Beep(1000, 1);
-            soundThread.Abort();
-            StopTone();
+            watch.Stop();
 
-            isHeld = false;
-            DateTime currTick = DateTime.Now;
+
             int diff = currTick.Millisecond - savedTick.Millisecond;
-            Console.WriteLine("Lift! " + diff);
             savedTick = currTick;
-            savedTick = DateTime.Now;
 
+
+            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+            Console.Beep(1000, 1);
+            // soundThread.
+            StopTone();
+            soundThread.Abort();
+            soundThread = null;
+            isHeld = false;
+       
+           
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, MouseButtonEventArgs e)
         {
 
-            NextOption();
+
         }
+
+
 
         private bool finishedAnim;
 
-        public void NextOption()
+        public async Task NextOption()
         {
             if (!finishedAnim)
                 return;
@@ -140,7 +180,7 @@ namespace SpaceLaunch
             Option2.Visibility = Visibility.Visible;
 
             //Load Next Option in second part of carousel
-            Option2.Source = new BitmapImage(new Uri(@"/images/"+loadedOption[currOptInd], UriKind.Relative));
+            Option2.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
 
             //Trigger Animation
             leave.Begin();
@@ -159,7 +199,9 @@ namespace SpaceLaunch
             Option2.Visibility = Visibility.Hidden;
             finishedAnim = true;
             //Ensure that when the carousel rolls back it loads up the 'current image'
-
+            NextOption();
         }
+
+
     }
 }

@@ -109,6 +109,9 @@
     <Content Include="a.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\ver1button_down.png" />
+    <Resource Include="Images\ver1button_over.png" />
+    <Resource Include="Images\ver1button_up.png" />
     <Resource Include="Images\planet2.png" />
     <Resource Include="Images\space.png" />
   </ItemGroup>

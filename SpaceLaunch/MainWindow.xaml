@@ -13,18 +13,18 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-500"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="-500"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="-500"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option2">
                 <EasingDoubleKeyFrame KeyTime="0" Value="500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281" d:IsHidden="True">
+        <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -34,7 +34,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="Option1" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281" MouseUp="Option_MouseUp" MouseDown="Option2_MouseDown">
+        <Image x:Name="Option1" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -44,7 +44,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="Option2" Margin="208,124,200,169" Source="Images/planet2.png" RenderTransformOrigin="0.5,0.5"  MouseUp="Option_MouseUp"  MouseDown="Option2_MouseDown">
+        <Image x:Name="Option2" Margin="208,124,200,169" Source="Images/planet2.png" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -54,5 +54,9 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
+        <TextBlock x:Name="NoteHolder" Width="200" Height="70" Margin="0,380,0,0" FontSize="45" FontWeight="Medium" TextAlignment="Center">
+            Test
+        </TextBlock>
     </Grid>
 </Window>
