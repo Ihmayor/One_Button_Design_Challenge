@@ -128,10 +128,11 @@ namespace SpaceLaunch
             Option2.Visibility = Visibility.Hidden;
             Storyboard leave = FindResource("Leave") as Storyboard;
             leave.Seek(TimeSpan.Zero, TimeSeekOrigin.BeginTime);
+            Option2.BeginAnimation(Image.RenderTransformProperty, null);
+            leave.Stop();
             CurrentOption.Visibility = Visibility.Hidden;
             Option1.Visibility = Visibility.Visible;
             Option2.Visibility = Visibility.Visible;
-
 
             //Load Next Option in second part of carousel
             Option2.Source = new BitmapImage(new Uri(@"/images/"+loadedOption[currOptInd], UriKind.Relative));
@@ -151,7 +152,9 @@ namespace SpaceLaunch
         
             //Overlay Option Image
             CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
-            CurrentOption.Visibility = Visibility.Visible;
+          //  CurrentOption.Visibility = Visibility.Visible;
+            Option1.Visibility = Visibility.Hidden;
+            Option2.Visibility = Visibility.Hidden;
         }
     }
 }
