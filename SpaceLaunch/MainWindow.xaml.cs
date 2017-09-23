@@ -21,7 +21,7 @@ using Timer = System.Timers.Timer;
 
 namespace SpaceLaunch
 {
-    /// <summary>
+    /// <summary>d
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
@@ -43,6 +43,7 @@ namespace SpaceLaunch
         //Interaction
         private bool isHeld;
         private bool firstClick;
+        private bool disableInteraction;
 
         //Sound
         private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A", 440 }, { "B", 494 }, { "C", 524 }, { "D", 587 }, { "E", 659 }, { "F", 698 }, { "G", 784 }, { "A2", 880 }, { "B2", 988 }, { "C2", 1046 } };
@@ -70,11 +71,10 @@ namespace SpaceLaunch
 
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
 
-
-
             currentNoteIndex = 0;
             currOptIndex = 0;
             finishedAnim = true;
+
 
             //Timer Used to check pauses between entries
             pauseTimer = new DispatcherTimer();
@@ -84,14 +84,25 @@ namespace SpaceLaunch
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
             Thread.Sleep(2000);
-            NextOption().Wait();
 
             //Sound Init and Sound Hold Init Vars
             noteSelected = "D";
             watch = new Stopwatch();
 
+            disableInteraction = true;
             firstClick = false;
 
+
+            StartScene();
+        }
+
+        private void StartScene()
+        {
+            //Trigger Zeon_Zaku Animation
+
+
+            disableInteraction = false;
+            NextOption().Wait();
         }
 
 
@@ -114,7 +125,6 @@ namespace SpaceLaunch
         {
             stopPlaying = true;
         }
-
      
 
         private int halfNoteCount;
@@ -188,6 +198,7 @@ namespace SpaceLaunch
         {
             //Disabled/Hide Controls;
             //Begin Animation of fight
+            MessageHolder.Visibility = Visibility.Visible;
 
             await PlayRecord();
 
@@ -207,7 +218,6 @@ namespace SpaceLaunch
         {
             TheButton.Visibility = Visibility.Hidden;
             NoteHolder.Visibility = Visibility.Hidden;
-            MessageHolder.Visibility = Visibility.Visible;
             
             Thread.Sleep(2000);
             int eighth = 200;
@@ -323,6 +333,8 @@ namespace SpaceLaunch
                 return;
             else if (firstClick)
                 await CheckNoteCountMatch();
+            else if (disableInteraction)
+                return;
 
             //Increase Index and make sure it loops around
             currOptIndex++;
