@@ -145,7 +145,7 @@ namespace SpaceLaunch
                 Console.Beep(ScaleNotes["A"], 800);
                 Console.Beep(ScaleNotes["D"], 1000);
                 //Play Ding Right Sound
-                record += NoteHolder;
+                record += NoteHolder.Text;
                 //Trigger Animation
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
@@ -179,17 +179,17 @@ namespace SpaceLaunch
             prepareLevel++;
             if (prepareLevel > 10)
             {
-                BeginFight();
+               await BeginFight();
             }
 
         }
 
-        private void BeginFight()
+        private async Task BeginFight()
         {
             //Disabled/Hide Controls;
             //Begin Animation of fight
 
-            PlayRecord();
+            await PlayRecord();
 
             int zeon_zaku_power = 5;
             if (TotalPower > zeon_zaku_power )
@@ -203,12 +203,13 @@ namespace SpaceLaunch
 
         }
 
-        private void PlayRecord()
+        private async Task PlayRecord()
         {
             TheButton.Visibility = Visibility.Hidden;
             NoteHolder.Visibility = Visibility.Hidden;
             MessageHolder.Visibility = Visibility.Visible;
-
+            
+            Thread.Sleep(2000);
             int eighth = 200;
             int quarter = 800;
             int half = 1200;
@@ -217,16 +218,15 @@ namespace SpaceLaunch
                 switch (note)
                 {
                     case 'e':
-                        Console.Beep(580, eighth);
+                        Console.Beep(ScaleNotes["A"], eighth);
                         break;
                     case 'q':
-                        Console.Beep(580, quarter);
+                        Console.Beep(ScaleNotes["A"], quarter);
                         break;
                     case 'h':
-                        Console.Beep(580, half);
+                        Console.Beep(ScaleNotes["A"], half);
                         break;
                 }
-
             }
 
         }
