@@ -36,11 +36,11 @@ namespace SpaceLaunch
     {
         //Carousel Animation
         private Storyboard leave;
-        private string[] loadedOption = new string[] { "planet.png", "planet2.png","PlaceholderGundam.png" };
-        int currOptInd;
+        private Dictionary<string,int> loadedOption = new Dictionary<string,int> { { "planet.png", 1 }, { "planet2.png",1 },{ "PlaceholderGundam.png",-1 } };
+        private string[] loadedCode = new string[] { "ehqq", "eeqe", "h", "hh", "qqe", "eqe", "qqq", "q", "e", "eq", "heq" };
+        int currOptIndex;
 
         //Interaction
-        private bool firstClick;
         private bool isHeld;
 
         //Sound
@@ -48,7 +48,7 @@ namespace SpaceLaunch
         private int currentNoteIndex;
         private string noteSelected;
 
-        private Dictionary<string, float> RecordedPresses = new Dictionary<string, float>() { };
+        private string record;
 
         //Sound Thread + Timing
         private Stopwatch watch;
@@ -58,41 +58,43 @@ namespace SpaceLaunch
         private bool stopPlaying;
         private long savedTick;
 
-        private DispatcherTimer timer;
+        private DispatcherTimer pauseTimer;
 
-
+        private int TotalPower;
+        private int prepareLevel;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //Load Notes CDEFGABC!<===== Where C! is highest C!
-            //Scale keeps going up and up but we only have 4 stages or something.
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
-            firstClick = true;
-            ahSound = new SoundPlayer[] { new SoundPlayer("a.wav"), new SoundPlayer("a.wav") };
-            streamNum = 0;
+
+
+
             currentNoteIndex = 0;
-            currOptInd = 0;
-            ahSound[streamNum].Load();
-            ahSound[ahSound.Length - 1].Load();
+            currOptIndex = 0;
             finishedAnim = true;
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(400);
-            timer.Tick += Timer_Tick;
+
+            //Timer Used to check pauses between entries
+            pauseTimer = new DispatcherTimer();
+            pauseTimer.Tick += PauseTimer_Tick;
+
+            //Animation Resources + Init
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
             Thread.Sleep(2000);
             NextOption().Wait();
+
+            //Sound Init and Sound Hold Init Vars
             noteSelected = "D";
             watch = new Stopwatch();
 
         }
 
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void PauseTimer_Tick(object sender, EventArgs e)
         {
-
+            CheckNoteCountMatch().Wait();
         }
 
         private void PlayTone(string Note)
@@ -112,14 +114,14 @@ namespace SpaceLaunch
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
         }
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
             if (isHeld)
                 Image_MouseUp(sender,new MouseButtonEventArgs(e.MouseDevice, 0,new MouseButton()));
-            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
         }
 
         private int halfNoteCount;
@@ -133,27 +135,118 @@ namespace SpaceLaunch
             eighthNoteCount = 0;
         }
 
-        private void CheckNoteCountMatch()
+        private async Task CheckNoteCountMatch()
         {
-            //Get Current Option
+            //Cancel any running noise
+            Console.Beep(1000, 1);
+
+            //Get Current Option to compare to
+            string currentCode = CodeHolder.Text; 
+
+            //Get Code 
+            string enteredInput = NoteHolder.Text;
+
+            //Set the bool if the code is a match
+            if (currentCode == enteredInput)
+            {
+                Console.Beep(ScaleNotes["A"], 1000);
+                Console.Beep(ScaleNotes["D"], 1000);
+                //Play Ding Right Sound
+                record += NoteHolder;
+                //Trigger Animation
+                ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
+                ResultCheck.Visibility = Visibility.Visible;
+                TotalPower += loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Value;
+          //      ResultCheck.Visibility = Visibility.Hidden;
+            }
+            else if (enteredInput == "")
+            {
+                //Console.Beep(ScaleNotes["A"], 500);
+                //Console.Beep(ScaleNotes["B"], 500);
+                //Console.Beep(ScaleNotes["C"], 500);
+
+            }
+            else
+            {
+                //Play 'Wrong' Sound
+                Console.Beep(ScaleNotes["F"], 700);
+                Console.Beep(ScaleNotes["E"], 300);
+
+                TotalPower--;
+                //Trigger Animation
+                ResultCheck.Source = new BitmapImage(new Uri(@"images/check_wrong.png", UriKind.Relative));
+                ResultCheck.Visibility = Visibility.Visible;
+            //    ResultCheck.Visibility = Visibility.Hidden;
+            }
+
+            //Reset Any Button Disabling and Clear Note Count
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+            ClearNoteCount();
+            NoteHolder.Text = "";
+            prepareLevel++;
+            if (prepareLevel > 10)
+            {
+                BeginFight();
+            }
+
         }
+
+        private void BeginFight()
+        {
+            //Disabled/Hide Controls;
+            //Begin Animation of fight
+
+            PlayRecord();
+
+            int zeon_zaku_power = 5;
+            if (TotalPower > zeon_zaku_power )
+            {
+                //Show Win Animation
+            }
+            else
+            {
+                //Show False Animation
+            }
+
+        }
+
+        private void PlayRecord()
+        {
+            int eighth = 100;
+            int quarter = 400;
+            int half = 1000;
+            foreach(char note in record)
+            {
+                switch (note)
+                {
+                    case 'e':
+                        Console.Beep(580, eighth*5);
+                        Thread.Sleep(eighth+580);
+                        break;
+                    case 'q':
+                        Console.Beep(580, quarter * 5);
+                        Thread.Sleep(quarter+580);
+                        break;
+                    case 'h':
+                        Console.Beep(580, half * 5);
+                        Thread.Sleep(half+580);
+                        break;
+                }
+
+            }
+
+        }
+
+
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            watch.Stop();
-            long currTick = watch.ElapsedMilliseconds;
-            long diff = currTick - savedTick;
-            if (diff > 5000)
-            {
-                CheckNoteCountMatch();
-                ClearNoteCount();
-            }
-
+            pauseTimer.Stop();
             watch.Start();
             savedTick = watch.ElapsedMilliseconds;
 
-            noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
-            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
+            //noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
             isHeld = true;
          
             // PlayTone(noteSelect);
@@ -161,34 +254,47 @@ namespace SpaceLaunch
             soundThread.Start();
         }
 
-        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        private async void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            Console.Beep(1000, 1);
             watch.Stop();
             long currTick = watch.ElapsedMilliseconds;
             long diff = currTick - savedTick;
 
-            if (diff >= 90 && diff <= 150)
+            if (diff >= 60 && diff < 300)
             {
                 eighthNoteCount++;
-                NoteHolder.Text += "e";
+                if (NoteHolder.Text.Length <= 5)
+                    NoteHolder.Text += "e";
             }
-            else if(diff >= 360 && diff <= 540)
+            else if(diff >= 300 && diff < 700)
             {
                 quarterNoteCount++;
-                NoteHolder.Text += "q";
+                if (NoteHolder.Text.Length <= 5)
+                    NoteHolder.Text += "q";
             }
-            else if (diff >= 1200 && diff<=1600 )
+            else if (diff >= 700 && diff<=1600 )
             {
                 halfNoteCount++;
-                NoteHolder.Text += "h";
+                if (NoteHolder.Text.Length <= 5)
+                    NoteHolder.Text += "h";
+            }
+            else if (diff >=3000)
+            {
+                await CheckNoteCountMatch();
             }
 
-            Console.WriteLine(NoteHolder.FontFamily.Source);
-         //   NoteHolder.Text = ": "+diff;
+            if (NoteHolder.Text.Length >= 5)
+            {
+                TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_off.png", UriKind.Relative));
+                await CheckNoteCountMatch();
+                return;
+            }
+
+            //   NoteHolder.Text = ": "+diff;
             savedTick = currTick;
 
-            ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
-            Console.Beep(1000, 1);
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             // soundThread.
             StopTone();
             if (soundThread !=null)
@@ -196,7 +302,8 @@ namespace SpaceLaunch
             soundThread = null;
             isHeld = false;
 
-            watch.Start();//List for pause.
+            pauseTimer.Interval = TimeSpan.FromMilliseconds(4000); 
+            pauseTimer.Start();
         }
 
 
@@ -214,9 +321,12 @@ namespace SpaceLaunch
         {
             if (!finishedAnim)
                 return;
+            else
+                await CheckNoteCountMatch();
+
             //Increase Index and make sure it loops around
-            currOptInd++;
-            currOptInd %= loadedOption.Length;
+            currOptIndex++;
+            currOptIndex %= loadedOption.Count;
 
             //Set Visible Carousel Option to cover Single Option
             //Reset to original state
@@ -227,7 +337,8 @@ namespace SpaceLaunch
             Option2.Visibility = Visibility.Visible;
 
             //Load Next Option in second part of carousel
-            Option2.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
+            Option2.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string,int>>()[currOptIndex].Key, UriKind.Relative));
+            CodeHolder.Text = loadedCode[new Random().Next(0, loadedCode.Length)];
 
             //Trigger Animation
             leave.Begin();
@@ -237,16 +348,19 @@ namespace SpaceLaunch
 
         private void LeaveOption_Completed(object sender, EventArgs e)
         {
-            Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
+            Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
 
             //Overlay Option Image
-            CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption[currOptInd], UriKind.Relative));
+            CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
             CurrentOption.Visibility = Visibility.Visible;
+
+
             Option1.Visibility = Visibility.Hidden;
             Option2.Visibility = Visibility.Hidden;
             finishedAnim = true;
             //Ensure that when the carousel rolls back it loads up the 'current image'
             NextOption();
+
         }
 
 

@@ -11,9 +11,5 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("font/pe.ttf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("a.m4a")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("a.wav")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/a.m4a")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/a.wav")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/spacelaunch.exe")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/spacelaunch.pdb")]
 
 
