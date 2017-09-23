@@ -61,6 +61,7 @@ namespace SpaceLaunch
         private DispatcherTimer timer;
 
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -84,8 +85,8 @@ namespace SpaceLaunch
             Thread.Sleep(2000);
             NextOption().Wait();
             noteSelected = "D";
+            watch = new Stopwatch();
 
-            watch = new Stopwatch(); 
         }
 
 
@@ -169,18 +170,21 @@ namespace SpaceLaunch
             if (diff >= 90 && diff <= 150)
             {
                 eighthNoteCount++;
+                NoteHolder.Text += "e";
             }
             else if(diff >= 360 && diff <= 540)
             {
                 quarterNoteCount++;
+                NoteHolder.Text += "q";
             }
             else if (diff >= 1200 && diff<=1600 )
             {
                 halfNoteCount++;
+                NoteHolder.Text += "h";
             }
-            
 
-            NoteHolder.Text = ": "+diff;
+            Console.WriteLine(NoteHolder.FontFamily.Source);
+         //   NoteHolder.Text = ": "+diff;
             savedTick = currTick;
 
             ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));

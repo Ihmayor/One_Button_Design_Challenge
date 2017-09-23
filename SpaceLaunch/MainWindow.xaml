@@ -55,8 +55,6 @@
             </Image.RenderTransform>
         </Image>
         <Image Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
-        <TextBlock x:Name="NoteHolder" Width="200" Height="70" Margin="0,380,0,0" FontSize="45" FontWeight="Medium" TextAlignment="Center">
-            Test
-        </TextBlock>
+        <TextBlock x:Name="NoteHolder" Width="200" Height="70" Margin="0,380,0,0" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center" Text=""/>
     </Grid>
 </Window>

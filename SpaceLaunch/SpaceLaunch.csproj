@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,6 +86,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="bin\Debug\Font\pe.ttf" />
+    <None Include="bin\Debug\SpaceLaunch.exe.config" />
+    <Content Include="Font\pe.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,11 +115,18 @@
     <Content Include="a.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="bin\Debug\a.m4a" />
+    <Content Include="bin\Debug\a.wav" />
+    <Content Include="bin\Debug\SpaceLaunch.exe" />
+    <Content Include="bin\Debug\SpaceLaunch.pdb" />
     <Resource Include="Images\ver1button_down.png" />
     <Resource Include="Images\ver1button_over.png" />
     <Resource Include="Images\ver1button_up.png" />
     <Resource Include="Images\planet2.png" />
     <Resource Include="Images\space.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

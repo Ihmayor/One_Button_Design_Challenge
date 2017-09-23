@@ -16,3 +16,4 @@ C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\
 C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.exe
 C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.pdb
 c:\users\user\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2017\Projects\SpaceLaunch\SpaceLaunch\bin\Debug\Font\pe.ttf
