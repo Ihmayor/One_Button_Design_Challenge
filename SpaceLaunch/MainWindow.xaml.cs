@@ -42,6 +42,7 @@ namespace SpaceLaunch
 
         //Interaction
         private bool isHeld;
+        private bool firstClick;
 
         //Sound
         private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A", 440 }, { "B", 494 }, { "C", 524 }, { "D", 587 }, { "E", 659 }, { "F", 698 }, { "G", 784 }, { "A2", 880 }, { "B2", 988 }, { "C2", 1046 } };
@@ -89,6 +90,8 @@ namespace SpaceLaunch
             noteSelected = "D";
             watch = new Stopwatch();
 
+            firstClick = false;
+
         }
 
 
@@ -112,17 +115,7 @@ namespace SpaceLaunch
             stopPlaying = true;
         }
 
-        private void Image_MouseEnter(object sender, MouseEventArgs e)
-        {
-            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
-        }
-
-        private void Image_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (isHeld)
-                Image_MouseUp(sender,new MouseButtonEventArgs(e.MouseDevice, 0,new MouseButton()));
-            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
-        }
+     
 
         private int halfNoteCount;
         private int quarterNoteCount;
@@ -149,7 +142,7 @@ namespace SpaceLaunch
             //Set the bool if the code is a match
             if (currentCode == enteredInput)
             {
-                Console.Beep(ScaleNotes["A"], 1000);
+                Console.Beep(ScaleNotes["A"], 800);
                 Console.Beep(ScaleNotes["D"], 1000);
                 //Play Ding Right Sound
                 record += NoteHolder;
@@ -212,24 +205,25 @@ namespace SpaceLaunch
 
         private void PlayRecord()
         {
-            int eighth = 100;
-            int quarter = 400;
-            int half = 1000;
+            TheButton.Visibility = Visibility.Hidden;
+            NoteHolder.Visibility = Visibility.Hidden;
+            MessageHolder.Visibility = Visibility.Visible;
+
+            int eighth = 200;
+            int quarter = 800;
+            int half = 1200;
             foreach(char note in record)
             {
                 switch (note)
                 {
                     case 'e':
-                        Console.Beep(580, eighth*5);
-                        Thread.Sleep(eighth+580);
+                        Console.Beep(580, eighth);
                         break;
                     case 'q':
-                        Console.Beep(580, quarter * 5);
-                        Thread.Sleep(quarter+580);
+                        Console.Beep(580, quarter);
                         break;
                     case 'h':
-                        Console.Beep(580, half * 5);
-                        Thread.Sleep(half+580);
+                        Console.Beep(580, half);
                         break;
                 }
 
@@ -241,6 +235,8 @@ namespace SpaceLaunch
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!firstClick)
+                firstClick = true;
             pauseTimer.Stop();
             watch.Start();
             savedTick = watch.ElapsedMilliseconds;
@@ -306,13 +302,17 @@ namespace SpaceLaunch
             pauseTimer.Start();
         }
 
-
-        private void Button_Click(object sender, MouseButtonEventArgs e)
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-
-
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
         }
 
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (isHeld)
+                Image_MouseUp(sender, new MouseButtonEventArgs(e.MouseDevice, 0, new MouseButton()));
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+        }
 
 
         private bool finishedAnim;
@@ -321,7 +321,7 @@ namespace SpaceLaunch
         {
             if (!finishedAnim)
                 return;
-            else
+            else if (firstClick)
                 await CheckNoteCountMatch();
 
             //Increase Index and make sure it loops around

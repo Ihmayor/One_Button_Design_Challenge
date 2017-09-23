@@ -54,9 +54,12 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png"></Image>
         <Image x:Name="TheButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
         <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
+        <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
         <TextBlock x:Name="NoteHolder" Margin="208,390,218,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+
         <TextBlock x:Name="CodeHolder" Margin="208,53,218,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
     </Grid>
 </Window>

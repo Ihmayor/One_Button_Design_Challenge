@@ -82,6 +82,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\ver1button_off.png" />
     <Resource Include="Images\check_right.png" />
     <Resource Include="Images\check_wrong.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,6 +92,7 @@
     <Content Include="Font\pe.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Images\wipzeonzaku.pdn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
