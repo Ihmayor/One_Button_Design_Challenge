@@ -59,7 +59,23 @@
         <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
         <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
         <TextBlock x:Name="NoteHolder" Margin="208,390,218,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
-
         <TextBlock x:Name="CodeHolder" Margin="208,53,218,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+        <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="10" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
+            <ProgressBar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ProgressBar.RenderTransform>
+
+        </ProgressBar>
+        <Grid x:Name="StartScene">
+
+        </Grid>
+        <Grid x:Name="EndScene">
+
+        </Grid>
     </Grid>
 </Window>

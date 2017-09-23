@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Media;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +34,7 @@ namespace SpaceLaunch
     //public string SoundPlaying { get; private set; }
     //public bool Stopping { get; set; }
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window,INotifyPropertyChanged
     {
         //Carousel Animation
         private Storyboard leave;
@@ -62,13 +64,15 @@ namespace SpaceLaunch
 
         private DispatcherTimer pauseTimer;
 
+        public event PropertyChangedEventHandler PropertyChanged;
         private int TotalPower;
+
         private int prepareLevel;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            DataContext = this;
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
 
             currentNoteIndex = 0;
@@ -93,10 +97,10 @@ namespace SpaceLaunch
             firstClick = false;
 
 
-            StartScene();
+            LoadStart();
         }
 
-        private void StartScene()
+        private void LoadStart()
         {
             //Trigger Zeon_Zaku Animation
 
@@ -105,6 +109,7 @@ namespace SpaceLaunch
             NextOption().Wait();
         }
 
+   
 
         private void PauseTimer_Tick(object sender, EventArgs e)
         {
@@ -160,7 +165,7 @@ namespace SpaceLaunch
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
                 TotalPower += loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Value;
-          //      ResultCheck.Visibility = Visibility.Hidden;
+                //      ResultCheck.Visibility = Visibility.Hidden;
             }
             else if (enteredInput == "")
             {
@@ -179,14 +184,19 @@ namespace SpaceLaunch
                 //Trigger Animation
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_wrong.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
-            //    ResultCheck.Visibility = Visibility.Hidden;
+                //    ResultCheck.Visibility = Visibility.Hidden;
+
             }
 
+            if (enteredInput != "")
+            {
+                prepareLevel++;
+                PrepareProgress.Value++;
+            }
             //Reset Any Button Disabling and Clear Note Count
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             ClearNoteCount();
             NoteHolder.Text = "";
-            prepareLevel++;
             if (prepareLevel > 10)
             {
                await BeginFight();
@@ -327,14 +337,16 @@ namespace SpaceLaunch
 
         private bool finishedAnim;
 
+
         public async Task NextOption()
         {
             if (!finishedAnim)
                 return;
-            else if (firstClick)
-                await CheckNoteCountMatch();
             else if (disableInteraction)
                 return;
+            else if (firstClick)
+                await CheckNoteCountMatch();
+           
 
             //Increase Index and make sure it loops around
             currOptIndex++;
