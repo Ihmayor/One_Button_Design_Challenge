@@ -36,7 +36,7 @@ namespace SpaceLaunch
     {
         //Carousel Animation
         private Storyboard leave;
-        private string[] loadedOption = new string[] { "planet.png", "planet2.png" };
+        private string[] loadedOption = new string[] { "planet.png", "planet2.png","PlaceholderGundam.png" };
         int currOptInd;
 
         //Interaction
@@ -47,14 +47,16 @@ namespace SpaceLaunch
         private Dictionary<string, int> ScaleNotes = new Dictionary<string, int>() { { "A", 440 }, { "B", 494 }, { "C", 524 }, { "D", 587 }, { "E", 659 }, { "F", 698 }, { "G", 784 }, { "A2", 880 }, { "B2", 988 }, { "C2", 1046 } };
         private int currentNoteIndex;
         private string noteSelected;
-        
+
+        private Dictionary<string, float> RecordedPresses = new Dictionary<string, float>() { };
+
         //Sound Thread + Timing
         private Stopwatch watch;
         private Thread soundThread;
         private SoundPlayer[] ahSound;
         private int streamNum;
         private bool stopPlaying;
-        private DateTime savedTick;
+        private long savedTick;
 
         private DispatcherTimer timer;
 
@@ -67,7 +69,6 @@ namespace SpaceLaunch
             //Scale keeps going up and up but we only have 4 stages or something.
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
             firstClick = true;
-            savedTick = DateTime.Now;
             ahSound = new SoundPlayer[] { new SoundPlayer("a.wav"), new SoundPlayer("a.wav") };
             streamNum = 0;
             currentNoteIndex = 0;
@@ -81,8 +82,8 @@ namespace SpaceLaunch
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
             Thread.Sleep(2000);
-            NextOption();
-            noteSelect = "D";
+            NextOption().Wait();
+            noteSelected = "D";
 
             watch = new Stopwatch(); 
         }
@@ -115,41 +116,83 @@ namespace SpaceLaunch
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
+            if (isHeld)
+                Image_MouseUp(sender,new MouseButtonEventArgs(e.MouseDevice, 0,new MouseButton()));
             ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
+        }
+
+        private int halfNoteCount;
+        private int quarterNoteCount;
+        private int eighthNoteCount;
+
+        private void ClearNoteCount()
+        {
+            halfNoteCount = 0;
+            quarterNoteCount = 0;
+            eighthNoteCount = 0;
+        }
+
+        private void CheckNoteCountMatch()
+        {
+            //Get Current Option
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            watch.Stop();
+            long currTick = watch.ElapsedMilliseconds;
+            long diff = currTick - savedTick;
+            if (diff > 5000)
+            {
+                CheckNoteCountMatch();
+                ClearNoteCount();
+            }
+
             watch.Start();
             savedTick = watch.ElapsedMilliseconds;
 
-            noteSelect = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
+            noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
             ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
             isHeld = true;
          
             // PlayTone(noteSelect);
-            soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelect); }));
+            soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelected); }));
             soundThread.Start();
         }
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             watch.Stop();
+            long currTick = watch.ElapsedMilliseconds;
+            long diff = currTick - savedTick;
 
+            if (diff >= 90 && diff <= 150)
+            {
+                eighthNoteCount++;
+            }
+            else if(diff >= 360 && diff <= 540)
+            {
+                quarterNoteCount++;
+            }
+            else if (diff >= 1200 && diff<=1600 )
+            {
+                halfNoteCount++;
+            }
+            
 
-            int diff = currTick.Millisecond - savedTick.Millisecond;
+            NoteHolder.Text = ": "+diff;
             savedTick = currTick;
-
 
             ((Image)sender).Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             Console.Beep(1000, 1);
             // soundThread.
             StopTone();
-            soundThread.Abort();
+            if (soundThread !=null)
+                soundThread.Abort();
             soundThread = null;
             isHeld = false;
-       
-           
+
+            watch.Start();//List for pause.
         }
 
 

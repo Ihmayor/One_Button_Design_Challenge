@@ -13,13 +13,13 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-500"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="-500"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9.5" Value="-500"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Option2">
                 <EasingDoubleKeyFrame KeyTime="0" Value="500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="500"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
