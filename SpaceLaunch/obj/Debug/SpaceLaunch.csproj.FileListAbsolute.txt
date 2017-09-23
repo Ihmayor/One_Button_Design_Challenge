@@ -16,3 +16,5 @@ C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\
 C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.csproj.CoreCompileInputs.cache
 C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.exe
 C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.pdb
+C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\obj\Debug\SpaceLaunch.csprojResolveAssemblyReference.cache
+C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\bin\Debug\drumbeat.wav

@@ -57,6 +57,9 @@ namespace SpaceLaunch
         //Sound Thread + Timing
         private Stopwatch watch;
         private Thread soundThread;
+        private Thread drumThread;
+        private SoundPlayer drumSound = new SoundPlayer("drumbeat.wav");
+
         private SoundPlayer[] ahSound;
         private int streamNum;
         private bool stopPlaying;
@@ -89,6 +92,8 @@ namespace SpaceLaunch
             leave.Completed += LeaveOption_Completed;
             Thread.Sleep(2000);
 
+            drumSound.Load();
+
             //Sound Init and Sound Hold Init Vars
             noteSelected = "D";
             watch = new Stopwatch();
@@ -96,16 +101,21 @@ namespace SpaceLaunch
             disableInteraction = true;
             firstClick = false;
 
-
-            LoadStart();
+         //   PlayMultiNotes(new string[] { "A", "C", "G" });
+           
         }
 
         private void LoadStart()
         {
+            StartScene.Visibility = Visibility.Hidden;
             //Trigger Zeon_Zaku Animation
 
-
             disableInteraction = false;
+            GameGrid.Visibility = Visibility.Visible;
+
+            drumThread = new Thread(new ThreadStart(() =>{ drumSound.PlayLooping(); }));
+            drumThread.Start();
+
             NextOption().Wait();
         }
 
@@ -115,6 +125,7 @@ namespace SpaceLaunch
         {
             CheckNoteCountMatch().Wait();
         }
+  
 
         private void PlayTone(string Note)
         {
@@ -209,6 +220,9 @@ namespace SpaceLaunch
             //Disabled/Hide Controls;
             //Begin Animation of fight
             MessageHolder.Visibility = Visibility.Visible;
+            disableInteraction = true;
+
+            leave.Stop();
 
             await PlayRecord();
 
@@ -256,7 +270,17 @@ namespace SpaceLaunch
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!firstClick)
+            {
                 firstClick = true;
+                Console.Beep(ScaleNotes["E"], 700);
+                Console.Beep(ScaleNotes["G"], 300);
+                Console.Beep(ScaleNotes["C"], 300);
+                Console.Beep(ScaleNotes["C"], 300);
+                Console.Beep(ScaleNotes["C"], 700);
+                LoadStart();
+            }
+            if (disableInteraction)
+                return;
             pauseTimer.Stop();
             watch.Start();
             savedTick = watch.ElapsedMilliseconds;
@@ -264,10 +288,12 @@ namespace SpaceLaunch
             //noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
             isHeld = true;
-         
-            // PlayTone(noteSelect);
+
+           // PlayTone(noteSelect);
             soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelected); }));
+
             soundThread.Start();
+
         }
 
         private async void Image_MouseUp(object sender, MouseButtonEventArgs e)
@@ -276,23 +302,24 @@ namespace SpaceLaunch
             watch.Stop();
             long currTick = watch.ElapsedMilliseconds;
             long diff = currTick - savedTick;
+            int limitNote = 6;
 
             if (diff >= 60 && diff < 300)
             {
                 eighthNoteCount++;
-                if (NoteHolder.Text.Length <= 5)
+                if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "e";
             }
             else if(diff >= 300 && diff < 700)
             {
                 quarterNoteCount++;
-                if (NoteHolder.Text.Length <= 5)
+                if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "q";
             }
             else if (diff >= 700 && diff<=1600 )
             {
                 halfNoteCount++;
-                if (NoteHolder.Text.Length <= 5)
+                if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "h";
             }
             else if (diff >=3000)

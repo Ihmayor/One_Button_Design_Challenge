@@ -24,58 +24,60 @@
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-        <Image x:Name="Option1" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-        <Image x:Name="Option2" Margin="208,124,200,169" Source="Images/planet2.png" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform x:Name="ChangeThis" X="500"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-        <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png"></Image>
-        <Image x:Name="TheButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
-        <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
-        <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
-        <TextBlock x:Name="NoteHolder" Margin="208,390,218,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
-        <TextBlock x:Name="CodeHolder" Margin="208,53,218,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
-        <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="10" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
-            <ProgressBar.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ProgressBar.RenderTransform>
+        <Grid x:Name="GameGrid" Visibility="Hidden">
+            <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="Option1" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="Option2" Margin="208,124,200,169" Source="Images/planet2.png" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform x:Name="ChangeThis" X="500"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
+            <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
+            <TextBlock x:Name="NoteHolder" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+            <TextBlock x:Name="CodeHolder" Margin="172,53,172,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+            <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="10" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
+                <ProgressBar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ProgressBar.RenderTransform>
 
-        </ProgressBar>
+            </ProgressBar>
+        </Grid>
         <Grid x:Name="StartScene">
-
+            <Image Source="Images/logo.png" Margin="56,-42,32,202"></Image>
+            <Image Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
         </Grid>
         <Grid x:Name="EndScene">
-
         </Grid>
+        <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png"></Image>
+        <Image x:Name="TheButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
     </Grid>
 </Window>

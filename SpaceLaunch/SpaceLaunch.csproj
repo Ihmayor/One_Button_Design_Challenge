@@ -82,6 +82,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="drumbeat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\ArrowInstruct.png" />
+    <Resource Include="Images\Logo.png" />
+    <Resource Include="Images\Stick.png" />
     <Resource Include="Images\zeonzakuappear.png" />
     <Resource Include="Images\zeonzakufullbody.png" />
     <Resource Include="Images\Gun.png" />
@@ -97,7 +103,6 @@
     <Content Include="Font\pe.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Images\wipzeonzaku.pdn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
