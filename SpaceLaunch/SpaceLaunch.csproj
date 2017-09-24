@@ -85,17 +85,27 @@
     <Content Include="drumbeat.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\ArrowInstruct.png" />
-    <Resource Include="Images\Logo.png" />
-    <Resource Include="Images\Stick.png" />
-    <Resource Include="Images\zeonzakuappear.png" />
-    <Resource Include="Images\zeonzakufullbody.png" />
-    <Resource Include="Images\Gun.png" />
-    <Resource Include="Images\GundamGun.png" />
-    <Resource Include="Images\GundamNoGun.png" />
-    <Resource Include="Images\ver1button_off.png" />
-    <Resource Include="Images\check_right.png" />
-    <Resource Include="Images\check_wrong.png" />
+    <Resource Include="images\Notes\note_B2.png" />
+    <Resource Include="images\Notes\note_C2.png" />
+    <Resource Include="images\Notes\note_A.png" />
+    <Resource Include="images\Notes\note_A2.png" />
+    <Resource Include="images\Notes\note_B.png" />
+    <Resource Include="images\Notes\note_C.png" />
+    <Resource Include="images\Notes\note_D.png" />
+    <Resource Include="images\Notes\note_E.png" />
+    <Resource Include="images\Notes\note_F.png" />
+    <Resource Include="images\Notes\note_G.png" />
+    <Resource Include="images\ArrowInstruct.png" />
+    <Resource Include="images\Logo.png" />
+    <Resource Include="images\Stick.png" />
+    <Resource Include="images\zeonzakuappear.png" />
+    <Resource Include="images\zeonzakufullbody.png" />
+    <Resource Include="images\Gun.png" />
+    <Resource Include="images\GundamGun.png" />
+    <Resource Include="images\GundamNoGun.png" />
+    <Resource Include="images\ver1button_off.png" />
+    <Resource Include="images\check_right.png" />
+    <Resource Include="images\check_wrong.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -112,13 +122,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\PlaceholderGundam.png" />
+    <Resource Include="images\PlaceholderGundam.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\placholdertower.png" />
+    <Resource Include="images\placholdertower.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\planet.png" />
+    <Resource Include="images\planet.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="a.m4a">
@@ -127,11 +137,11 @@
     <Content Include="a.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\ver1button_down.png" />
-    <Resource Include="Images\ver1button_over.png" />
-    <Resource Include="Images\ver1button_up.png" />
-    <Resource Include="Images\planet2.png" />
-    <Resource Include="Images\space.png" />
+    <Resource Include="images\ver1button_down.png" />
+    <Resource Include="images\ver1button_over.png" />
+    <Resource Include="images\ver1button_up.png" />
+    <Resource Include="images\planet2.png" />
+    <Resource Include="images\space.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />

@@ -70,8 +70,11 @@
                 </ProgressBar.RenderTransform>
 
             </ProgressBar>
+            <Image x:Name="ScaleHolder" Height="150" Width="150
+                   " Source="Images/Notes/note_a.png" Margin="434,304,10,17"></Image>
+
         </Grid>
-        <Grid x:Name="StartScene">
+        <Grid x:Name="StartScene" Visibility="Visible">
             <Image Source="Images/logo.png" Margin="56,-42,32,202"></Image>
             <Image Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
         </Grid>

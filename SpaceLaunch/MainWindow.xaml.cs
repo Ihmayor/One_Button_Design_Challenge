@@ -23,23 +23,22 @@ using Timer = System.Timers.Timer;
 
 namespace SpaceLaunch
 {
-    /// <summary>d
+    /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// 
-    //private string NextSound { get; set; }
-    //public AutoResetEvent PlayASoundFlag = new AutoResetEvent(false);
-    //private Dictionary<string, SoundPlayer> Sounds { get; set; }
-    //private object soundLocker = new object();
-    //public string SoundPlaying { get; private set; }
-    //public bool Stopping { get; set; }
 
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         //Carousel Animation
         private Storyboard leave;
-        private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "planet.png", 1 }, { "planet2.png", 1 }, { "PlaceholderGundam.png", -1 } };
+        private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "Gun.png", 4 }, { "Stick.png", -1 } };
         private string[] loadedCode = new string[] { "ehqq", "eeqe", "h", "hh", "qqe", "eqe", "qqq", "q", "e", "eq", "heq" };
+
+
+        private List<Tuple<string, string>> errorCodes = new List<Tuple<string, string>>() {
+            new Tuple<string, string>("e,q,e", "F,D,C"),
+            new Tuple<string, string>("h,q,", "B,A,")};
+     
         int currOptIndex;
 
         //Interaction
@@ -52,30 +51,33 @@ namespace SpaceLaunch
         private int currentNoteIndex;
         private string noteSelected;
 
-        private string record;
+
+        private Tuple<string, string> record = new Tuple<string, string>("","");
 
         //Sound Thread + Timing
         private Stopwatch watch;
         private Thread soundThread;
+        private DispatcherTimer pauseTimer;
+        private DispatcherTimer scaleTimer;
+        private DispatcherTimer themeTimer;
         private Thread drumThread;
         private SoundPlayer drumSound = new SoundPlayer("drumbeat.wav");
 
-        private SoundPlayer[] ahSound;
-        private int streamNum;
         private bool stopPlaying;
         private long savedTick;
 
-        private DispatcherTimer pauseTimer;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //Fighting Vairables
         private int TotalPower;
-
         private int prepareLevel;
         private bool isFirstFight;
 
         public MainWindow()
         {
-            record = "";
+            //Music Box Storage
+            
+
+
             InitializeComponent();
             DataContext = this;
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
@@ -89,6 +91,11 @@ namespace SpaceLaunch
             pauseTimer = new DispatcherTimer();
             pauseTimer.Tick += PauseTimer_Tick;
 
+            //Timer used to alternate scales
+            scaleTimer = new DispatcherTimer();
+            scaleTimer.Interval = TimeSpan.FromMilliseconds(400);
+            scaleTimer.Tick += ScaleTimer_Tick;
+
             //Animation Resources + Init
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
@@ -97,15 +104,64 @@ namespace SpaceLaunch
             drumSound.Load();
 
             //Sound Init and Sound Hold Init Vars
-            noteSelected = "D";
+            noteSelected = "A";
             watch = new Stopwatch();
 
             disableInteraction = true;
             isFirstClick = false;
             isFirstFight = true;
 
-            //   PlayMultiNotes(new string[] { "A", "C", "G" });
+            themeTimer = new DispatcherTimer();
+            themeTimer.Interval = TimeSpan.FromMilliseconds(2000);
+            themeTimer.Tick += ThemeTimer_Tick;
+            themeTimer.Start();
+        }
 
+        private void ThemeTimer_Tick(object sender, EventArgs e)
+        {
+            if (!isFirstClick)
+                PlayTheme();
+        }
+
+        private void PlayTheme()
+        {
+            Console.Beep(ScaleNotes["E"], 700);
+            Thread.Sleep(1000);
+            Console.Beep(ScaleNotes["G"], 300);
+            Console.Beep(ScaleNotes["C2"], 300);
+            Console.Beep(ScaleNotes["C2"], 300);
+            Console.Beep(ScaleNotes["C2"], 800);
+            Thread.Sleep(300);
+            Console.Beep(ScaleNotes["E"], 700);
+            Console.Beep(ScaleNotes["G"], 300);
+            Console.Beep(ScaleNotes["C2"], 700);
+            Console.Beep(ScaleNotes["C2"], 300);
+            Thread.Sleep(300);
+            Console.Beep(ScaleNotes["C2"], 700);
+            Thread.Sleep(800);
+            Console.Beep(ScaleNotes["F"], 700);
+            Console.Beep(ScaleNotes["A2"], 700);
+            Console.Beep(ScaleNotes["C2"], 700);
+            Console.Beep(ScaleNotes["C2"], 300);
+            Thread.Sleep(300);
+            Console.Beep(ScaleNotes["C2"], 700);
+            Console.Beep(ScaleNotes["B2"], 700);
+            Console.Beep(ScaleNotes["A2"], 700);
+            Console.Beep(ScaleNotes["C2"], 300);
+            Thread.Sleep(200);
+            Console.Beep(ScaleNotes["B2"], 700);
+            Thread.Sleep(800);
+            Console.Beep(ScaleNotes["G"], 700);
+            Console.Beep(ScaleNotes["G"], 700);
+
+        }
+
+        private void ScaleTimer_Tick(object sender, EventArgs e)
+        {
+            currentNoteIndex++;
+            currentNoteIndex %= ScaleNotes.Count;
+            noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[currentNoteIndex].Key;
+            ScaleHolder.Source = new BitmapImage(new Uri(@"images/Notes/note_" + noteSelected + ".png", UriKind.Relative));
         }
 
         private void LoadStart()
@@ -113,6 +169,7 @@ namespace SpaceLaunch
             StartScene.Visibility = Visibility.Hidden;
             //Trigger Zeon_Zaku Animation
 
+            //THE BELOW WILL GO IN THE FUNCTION 
             disableInteraction = false;
             GameGrid.Visibility = Visibility.Visible;
 
@@ -120,6 +177,9 @@ namespace SpaceLaunch
             drumThread.Start();
 
             NextOption().Wait();
+
+            themeTimer.Stop();
+            scaleTimer.Start();
         }
 
 
@@ -173,11 +233,13 @@ namespace SpaceLaunch
             //Set the bool if the code is a match
             if (currentCode == enteredInput)
             {
+                //Play Ding Right Sound
                 Console.Beep(ScaleNotes["A"], 800);
                 Console.Beep(ScaleNotes["D"], 1000);
-                //Play Ding Right Sound
-                record += NoteHolder.Text;
+
+                  
                 //Trigger Animation
+
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
                 TotalPower += loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Value;
@@ -193,9 +255,9 @@ namespace SpaceLaunch
             else
             {
                 //Play 'Wrong' Sound
-                Console.Beep(ScaleNotes["F"], 700);
-                Console.Beep(ScaleNotes["E"], 300);
-                record += NoteHolder.Text;
+                Tuple<string,string> fetchedErrorCode = errorCodes[new Random().Next(0, errorCodes.Count)];
+                PlayRecord(fetchedErrorCode);
+
                 TotalPower--;
                 //Trigger Animation
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_wrong.png", UriKind.Relative));
@@ -226,7 +288,7 @@ namespace SpaceLaunch
                 NoteHolder.Visibility = Visibility.Hidden;
 
                 BeginFight();
-                new Thread(new ThreadStart(() => { PlayRecord(); })).Start();
+                new Thread(new ThreadStart(() => { PlayRecord(record); })).Start();
             }
 
         }
@@ -241,7 +303,7 @@ namespace SpaceLaunch
             leave.Stop();
 
 
-            int zeon_zaku_power = 5;
+            int zeon_zaku_power = 2;
             if (TotalPower > zeon_zaku_power)
             {
                 GundamImage.Source = new BitmapImage(new Uri(@"images/GundamGun.png", UriKind.Relative));
@@ -254,23 +316,30 @@ namespace SpaceLaunch
             }
           }
 
-        private void PlayRecord()
+        private void PlayRecord(Tuple<string,string> recordNotes)
         {
             int eighth = 200;
             int quarter = 800;
             int half = 1200;
-            foreach (char note in record)
+            string[] patternNotes = recordNotes.Item1.Split(',');
+            string[] scaleNotes = recordNotes.Item2.Split(',');
+
+
+
+            for (int i = 0;i < patternNotes.Length; i++)
             {
-                switch (note)
+                string length = patternNotes[i];
+                string note = scaleNotes[i];
+                switch (length)
                 {
-                    case 'e':
-                        Console.Beep(ScaleNotes["A"], eighth);
+                    case "e":
+                        Console.Beep(ScaleNotes[note], eighth);
                         break;
-                    case 'q':
-                        Console.Beep(ScaleNotes["A"], quarter);
+                    case "q":
+                        Console.Beep(ScaleNotes[note], quarter);
                         break;
-                    case 'h':
-                        Console.Beep(ScaleNotes["A"], half);
+                    case "h":
+                        Console.Beep(ScaleNotes[note], half);
                         break;
                 }
             }
@@ -287,12 +356,7 @@ namespace SpaceLaunch
             {
 
                 isFirstClick = true;
-                //Console.Beep(ScaleNotes["E"], 700);
-                //Console.Beep(ScaleNotes["G"], 300);
-                //Console.Beep(ScaleNotes["C"], 300);
-                //Console.Beep(ScaleNotes["C"], 300);
-                //Console.Beep(ScaleNotes["C"], 700);
-                LoadStart();
+                   LoadStart();
                 return;
             }
             if (disableInteraction)
@@ -323,19 +387,29 @@ namespace SpaceLaunch
             {
                 eighthNoteCount++;
                 if (NoteHolder.Text.Length <= limitNote)
+                {
+                    //Record Notes
                     NoteHolder.Text += "e";
+                    record = new Tuple<string, string>(record.Item1 + ",e", record.Item2 + "," + noteSelected);
+                }
             }
             else if (diff >= 300 && diff < 700)
             {
                 quarterNoteCount++;
                 if (NoteHolder.Text.Length <= limitNote)
+                {
                     NoteHolder.Text += "q";
+                    record = new Tuple<string, string>(record.Item1 + ",q", record.Item2 + "," + noteSelected);
+                }
             }
             else if (diff >= 700 && diff <= 1600)
             {
                 halfNoteCount++;
                 if (NoteHolder.Text.Length <= limitNote)
+                {
                     NoteHolder.Text += "h";
+                    record = new Tuple<string, string>(record.Item1 + ",h", record.Item2 + "," + noteSelected);
+                }
             }
             else if (diff >= 3000)
             {
