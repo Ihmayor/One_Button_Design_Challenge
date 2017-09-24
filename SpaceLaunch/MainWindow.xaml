@@ -353,7 +353,25 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.378"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="TutScene">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ZeonZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.378"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"  Storyboard.TargetName="TheButton" Storyboard.TargetProperty="(Image.Source)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:01.0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="images/ver1button_up.PNG" />
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+
+        </Storyboard>
     </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource TutScene}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid x:Name="GameGrid" Visibility="Hidden" d:IsHidden="True">
             <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
