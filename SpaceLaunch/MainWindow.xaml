@@ -59,7 +59,7 @@
             <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
             <TextBlock x:Name="NoteHolder" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
             <TextBlock x:Name="CodeHolder" Margin="172,53,172,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
-            <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="10" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
+            <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="7" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -75,7 +75,9 @@
             <Image Source="Images/logo.png" Margin="56,-42,32,202"></Image>
             <Image Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
         </Grid>
-        <Grid x:Name="EndScene">
+        <Grid x:Name="EndScene" Visibility="Hidden">
+            <Image x:Name="ZeonZaku" Source="Images/zeonzakufullbody.png" Margin="268,10,-268,-10"/>
+            <Image x:Name="GundamImage" Source="Images/GundamGun.png" Margin="30,10,144,144"/>
         </Grid>
         <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png"></Image>
         <Image x:Name="TheButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>

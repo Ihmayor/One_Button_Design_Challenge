@@ -34,17 +34,17 @@ namespace SpaceLaunch
     //public string SoundPlaying { get; private set; }
     //public bool Stopping { get; set; }
 
-    public partial class MainWindow : Window,INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         //Carousel Animation
         private Storyboard leave;
-        private Dictionary<string,int> loadedOption = new Dictionary<string,int> { { "planet.png", 1 }, { "planet2.png",1 },{ "PlaceholderGundam.png",-1 } };
+        private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "planet.png", 1 }, { "planet2.png", 1 }, { "PlaceholderGundam.png", -1 } };
         private string[] loadedCode = new string[] { "ehqq", "eeqe", "h", "hh", "qqe", "eqe", "qqq", "q", "e", "eq", "heq" };
         int currOptIndex;
 
         //Interaction
         private bool isHeld;
-        private bool firstClick;
+        private bool isFirstClick;
         private bool disableInteraction;
 
         //Sound
@@ -71,9 +71,11 @@ namespace SpaceLaunch
         private int TotalPower;
 
         private int prepareLevel;
+        private bool isFirstFight;
 
         public MainWindow()
         {
+            record = "";
             InitializeComponent();
             DataContext = this;
             //Timer the change in scale. Reperesent timer in flash countdown in middle.
@@ -99,10 +101,11 @@ namespace SpaceLaunch
             watch = new Stopwatch();
 
             disableInteraction = true;
-            firstClick = false;
+            isFirstClick = false;
+            isFirstFight = true;
 
-         //   PlayMultiNotes(new string[] { "A", "C", "G" });
-           
+            //   PlayMultiNotes(new string[] { "A", "C", "G" });
+
         }
 
         private void LoadStart()
@@ -113,19 +116,19 @@ namespace SpaceLaunch
             disableInteraction = false;
             GameGrid.Visibility = Visibility.Visible;
 
-            drumThread = new Thread(new ThreadStart(() =>{ drumSound.PlayLooping(); }));
+            drumThread = new Thread(new ThreadStart(() => { drumSound.PlayLooping(); }));
             drumThread.Start();
 
             NextOption().Wait();
         }
 
-   
+
 
         private void PauseTimer_Tick(object sender, EventArgs e)
         {
             CheckNoteCountMatch().Wait();
         }
-  
+
 
         private void PlayTone(string Note)
         {
@@ -141,7 +144,7 @@ namespace SpaceLaunch
         {
             stopPlaying = true;
         }
-     
+
 
         private int halfNoteCount;
         private int quarterNoteCount;
@@ -156,11 +159,13 @@ namespace SpaceLaunch
 
         private async Task CheckNoteCountMatch()
         {
+            if (!isFirstFight)
+                return;
             //Cancel any running noise
             Console.Beep(1000, 1);
 
             //Get Current Option to compare to
-            string currentCode = CodeHolder.Text; 
+            string currentCode = CodeHolder.Text;
 
             //Get Code 
             string enteredInput = NoteHolder.Text;
@@ -190,7 +195,7 @@ namespace SpaceLaunch
                 //Play 'Wrong' Sound
                 Console.Beep(ScaleNotes["F"], 700);
                 Console.Beep(ScaleNotes["E"], 300);
-
+                record += NoteHolder.Text;
                 TotalPower--;
                 //Trigger Animation
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_wrong.png", UriKind.Relative));
@@ -208,46 +213,53 @@ namespace SpaceLaunch
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             ClearNoteCount();
             NoteHolder.Text = "";
-            if (prepareLevel > 10)
+            if (prepareLevel > 6 && isFirstFight)
             {
-               await BeginFight();
+                pauseTimer.Stop();
+                //drumSound.Stop(); 
+                //Disabled UI elements in this thread instead of the async thread.
+                GameGrid.Visibility = Visibility.Hidden;
+                MessageHolder.Visibility = Visibility.Visible;
+                EndScene.Visibility = Visibility.Visible;
+                TheButton.Visibility = Visibility.Hidden;
+                TheButton.Visibility = Visibility.Hidden;
+                NoteHolder.Visibility = Visibility.Hidden;
+
+                BeginFight();
+                new Thread(new ThreadStart(() => { PlayRecord(); })).Start();
             }
 
         }
 
-        private async Task BeginFight()
+        private void BeginFight()
         {
-            //Disabled/Hide Controls;
-            //Begin Animation of fight
-            MessageHolder.Visibility = Visibility.Visible;
+            drumSound.Stop();
             disableInteraction = true;
+            isFirstFight = false;
+            //Begin Animation of fight
 
             leave.Stop();
 
-            await PlayRecord();
 
             int zeon_zaku_power = 5;
-            if (TotalPower > zeon_zaku_power )
+            if (TotalPower > zeon_zaku_power)
             {
+                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamGun.png", UriKind.Relative));
                 //Show Win Animation
             }
             else
             {
-                //Show False Animation
+                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamNoGun.png", UriKind.Relative));
+                //Show Lose Animation
             }
+          }
 
-        }
-
-        private async Task PlayRecord()
+        private void PlayRecord()
         {
-            TheButton.Visibility = Visibility.Hidden;
-            NoteHolder.Visibility = Visibility.Hidden;
-            
-            Thread.Sleep(2000);
             int eighth = 200;
             int quarter = 800;
             int half = 1200;
-            foreach(char note in record)
+            foreach (char note in record)
             {
                 switch (note)
                 {
@@ -269,15 +281,19 @@ namespace SpaceLaunch
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!firstClick)
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
+
+            if (!isFirstClick)
             {
-                firstClick = true;
-                Console.Beep(ScaleNotes["E"], 700);
-                Console.Beep(ScaleNotes["G"], 300);
-                Console.Beep(ScaleNotes["C"], 300);
-                Console.Beep(ScaleNotes["C"], 300);
-                Console.Beep(ScaleNotes["C"], 700);
+
+                isFirstClick = true;
+                //Console.Beep(ScaleNotes["E"], 700);
+                //Console.Beep(ScaleNotes["G"], 300);
+                //Console.Beep(ScaleNotes["C"], 300);
+                //Console.Beep(ScaleNotes["C"], 300);
+                //Console.Beep(ScaleNotes["C"], 700);
                 LoadStart();
+                return;
             }
             if (disableInteraction)
                 return;
@@ -286,10 +302,9 @@ namespace SpaceLaunch
             savedTick = watch.ElapsedMilliseconds;
 
             //noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[new Random().Next(0, ScaleNotes.Count)].Key;
-            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
             isHeld = true;
 
-           // PlayTone(noteSelect);
+            // PlayTone(noteSelect);
             soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelected); }));
 
             soundThread.Start();
@@ -310,19 +325,19 @@ namespace SpaceLaunch
                 if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "e";
             }
-            else if(diff >= 300 && diff < 700)
+            else if (diff >= 300 && diff < 700)
             {
                 quarterNoteCount++;
                 if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "q";
             }
-            else if (diff >= 700 && diff<=1600 )
+            else if (diff >= 700 && diff <= 1600)
             {
                 halfNoteCount++;
                 if (NoteHolder.Text.Length <= limitNote)
                     NoteHolder.Text += "h";
             }
-            else if (diff >=3000)
+            else if (diff >= 3000)
             {
                 await CheckNoteCountMatch();
             }
@@ -340,12 +355,12 @@ namespace SpaceLaunch
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             // soundThread.
             StopTone();
-            if (soundThread !=null)
+            if (soundThread != null)
                 soundThread.Abort();
             soundThread = null;
             isHeld = false;
 
-            pauseTimer.Interval = TimeSpan.FromMilliseconds(4000); 
+            pauseTimer.Interval = TimeSpan.FromMilliseconds(4000);
             pauseTimer.Start();
         }
 
@@ -371,9 +386,8 @@ namespace SpaceLaunch
                 return;
             else if (disableInteraction)
                 return;
-            else if (firstClick)
-                await CheckNoteCountMatch();
-           
+
+
 
             //Increase Index and make sure it loops around
             currOptIndex++;
@@ -388,7 +402,7 @@ namespace SpaceLaunch
             Option2.Visibility = Visibility.Visible;
 
             //Load Next Option in second part of carousel
-            Option2.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string,int>>()[currOptIndex].Key, UriKind.Relative));
+            Option2.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
             CodeHolder.Text = loadedCode[new Random().Next(0, loadedCode.Length)];
 
             //Trigger Animation
