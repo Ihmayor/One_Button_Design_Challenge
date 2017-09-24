@@ -37,7 +37,7 @@ namespace SpaceLaunch
         //Fight Animation
         private Storyboard fight;
 
-
+        private Storyboard tutscene;
 
         private List<Tuple<string, string>> errorCodes = new List<Tuple<string, string>>() {
             new Tuple<string, string>("e,q,e", "F,D,C"),
@@ -108,6 +108,9 @@ namespace SpaceLaunch
             fight = FindResource("FightScene") as Storyboard;
             fight.Completed += Fight_Completed;
 
+            tutscene = FindResource("TutScene") as Storyboard;
+            tutscene.Completed += Tutscene_Completed;
+
 
             drumSound.Load();
 
@@ -120,7 +123,7 @@ namespace SpaceLaunch
             isFirstFight = true;
 
             themeTimer = new DispatcherTimer();
-            themeTimer.Interval = TimeSpan.FromMilliseconds(4000);
+            themeTimer.Interval = TimeSpan.FromMilliseconds(7000);
             themeTimer.Tick += ThemeTimer_Tick;
             themeTimer.Start();
         }
@@ -173,13 +176,17 @@ namespace SpaceLaunch
             noteSelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[currentNoteIndex].Key;
             ScaleHolder.Source = new BitmapImage(new Uri(@"images/Notes/note_" + noteSelected + ".png", UriKind.Relative));
         }
-
         private void LoadStart()
         {
-            StartScene.Visibility = Visibility.Hidden;
-            //Trigger Zeon_Zaku Animation
+            //Trigger Tutorial Animation
+            tutscene.Begin();
+        }
 
-            //THE BELOW WILL GO IN THE FUNCTION 
+        private void Tutscene_Completed(object sender, EventArgs e)
+        {
+            StartScene.Visibility = Visibility.Hidden;
+            tutscene.Stop();
+
             disableInteraction = false;
             GameGrid.Visibility = Visibility.Visible;
 
@@ -191,8 +198,6 @@ namespace SpaceLaunch
             themeTimer.Stop();
             scaleTimer.Start();
         }
-
-
 
         private void PauseTimer_Tick(object sender, EventArgs e)
         {
@@ -372,7 +377,6 @@ namespace SpaceLaunch
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
 
             if (!isFirstClick)
             {
@@ -394,6 +398,7 @@ namespace SpaceLaunch
             soundThread = new Thread(new ThreadStart(() => { PlayTone(noteSelected); }));
 
             soundThread.Start();
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_down.png", UriKind.Relative));
 
         }
 
@@ -456,10 +461,12 @@ namespace SpaceLaunch
             soundThread = null;
             isHeld = false;
 
-            pauseTimer.Interval = TimeSpan.FromMilliseconds(4000);
-            pauseTimer.Start();
+            if (!disableInteraction)
+            {
+                pauseTimer.Interval = TimeSpan.FromMilliseconds(4000);
+                pauseTimer.Start();
+            }
         }
-
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));

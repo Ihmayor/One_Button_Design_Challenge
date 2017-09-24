@@ -354,24 +354,162 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="TutScene">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ZeonZaku">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.378"/>
-            </DoubleAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"  Storyboard.TargetName="TheButton" Storyboard.TargetProperty="(Image.Source)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:01.0">
+                <DiscreteObjectKeyFrame KeyTime="0">
                     <DiscreteObjectKeyFrame.Value>
                         <BitmapImage UriSource="images/ver1button_up.PNG" />
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:7.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:8.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="file:///C:/Users/User/documents/visual studio 2017/Projects/SpaceLaunch/SpaceLaunch/images/ver1button_down.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:9.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:10">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="file:///C:/Users/User/documents/visual studio 2017/Projects/SpaceLaunch/SpaceLaunch/images/ver1button_down.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:11.8">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
             </ObjectAnimationUsingKeyFrames>
-
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="AppearZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="430.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="430.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="108.75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="108.75"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="539.25"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="AppearZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-128"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-128"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="-73.25"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="-73.25"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="-83.75"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="AppearZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.46"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.46"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0.797"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="0.797"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0.797"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="AppearZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.433"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.433"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0.659"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="0.659"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0.659"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CodeDemo">
+                <EasingDoubleKeyFrame KeyTime="0" Value="565.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="565.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="565.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:7.7" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:12" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14.3" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="-480"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="CodeDemo">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:7.7" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:12" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14.3" Value="-67.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="-67.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ArrowInstruct">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Logo">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="-258"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Logo">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="-13.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="AppearZaku">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0.275"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Tut1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="-6"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.4" Value="-40"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="-700"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Tut2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:7.7" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14.3" Value="-45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="-587"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Tut3">
+                <EasingDoubleKeyFrame KeyTime="0" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:16.6" Value="20"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:18.5" Value="-58"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:19.9" Value="-598"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Tut4">
+                <EasingDoubleKeyFrame KeyTime="0" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:19.9" Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:21.7" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:23.8" Value="-56"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:26.4" Value="-583"/>
+            </DoubleAnimationUsingKeyFrames>
+            <StringAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Text)" Storyboard.TargetName="NoteDemo">
+                <DiscreteStringKeyFrame KeyTime="0" Value=""/>
+                <DiscreteStringKeyFrame KeyTime="0:0:6.8" Value=""/>
+                <DiscreteStringKeyFrame KeyTime="0:0:9.3" Value="e"/>
+                <DiscreteStringKeyFrame KeyTime="0:0:11.9" Value="eq"/>
+                <DiscreteStringKeyFrame KeyTime="0:0:14.3" Value="eq"/>
+                <DiscreteStringKeyFrame KeyTime="0:0:15.6" Value="eq"/>
+            </StringAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="NoteDemo">
+                <EasingDoubleKeyFrame KeyTime="0" Value="700"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:11.9" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="-484"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="NoteDemo">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:11.9" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource TutScene}"/>
-        </EventTrigger>
-    </Window.Triggers>
     <Grid>
         <Grid x:Name="GameGrid" Visibility="Hidden" d:IsHidden="True">
             <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
@@ -424,12 +562,88 @@
                    " Source="Images/Notes/note_a.png" Margin="398,304,46,17"></Image>
 
         </Grid>
-        <Grid x:Name="StartScene" Visibility="Visible" d:IsHidden="True">
-            <Image x:Name="Logo" Source="Images/logo.png" Margin="56,-42,32,202"></Image>
+        <Grid x:Name="StartScene" Visibility="Visible">
+            <Image x:Name="Logo" Source="Images/logo.png" Margin="56,-42,32,202" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
             <Image x:Name="ArrowInstruct" Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
-            <Image x:Name="AppearZaku" Source="images/zeonzakuappear.png"></Image>
-            <TextBlock x:Name="CodeDemo" Margin="172,63,172,337" FontFamily="/SpaceLaunch;component/Font/#Petrucci" Foreground="Black" FontSize="36" FontWeight="Medium" Text="eqe" TextAlignment="Center"/>
-            <TextBlock x:Name="NoteDemo" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+            <Image x:Name="AppearZaku" Source="images/zeonzakuappear.png" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="600"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <TextBlock x:Name="CodeDemo" Margin="210,333,208,73" FontFamily="/SpaceLaunch;component/Font/#Petrucci" Foreground="Black" FontSize="36" FontWeight="Medium" Text="eq" TextAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="600"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="NoteDemo" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="700"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Image x:Name="Tut1" Source="images/tut/tut_1.png" RenderTransformOrigin="0.5,0.5" Margin="16,-96,-16,96">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="700"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="Tut2" Source="images/tut/tut_2.png" RenderTransformOrigin="0.5,0.5" Margin="12,-84,-12,84">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="700"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="Tut3" Source="images/tut/tut_3.png" RenderTransformOrigin="0.5,0.5" Margin="12,-177,-94,10" >
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="700"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="Tut4" Source="images/tut/tut_4.png" RenderTransformOrigin="0.5,0.5" Margin="-3,-94,15,65">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="700"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
         </Grid>
         <Grid x:Name="EndScene" Visibility="Hidden">
             <Image x:Name="ZeonZaku" Source="Images/zeonzakufullbody.png" Margin="268,10,-268,-10" RenderTransformOrigin="0.5,0.5">
