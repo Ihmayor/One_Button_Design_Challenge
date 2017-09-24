@@ -354,11 +354,6 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource FightScene}"/>
-        </EventTrigger>
-    </Window.Triggers>
     <Grid>
         <Grid x:Name="GameGrid" Visibility="Hidden" d:IsHidden="True">
             <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
@@ -414,7 +409,7 @@
             <Image Source="Images/logo.png" Margin="56,-42,32,202"></Image>
             <Image Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
         </Grid>
-        <Grid x:Name="EndScene" Visibility="Visible">
+        <Grid x:Name="EndScene" Visibility="Hidden">
             <Image x:Name="ZeonZaku" Source="Images/zeonzakufullbody.png" Margin="268,10,-268,-10" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>

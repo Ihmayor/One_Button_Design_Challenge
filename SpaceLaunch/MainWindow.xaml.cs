@@ -322,13 +322,16 @@ namespace SpaceLaunch
 
         private void Fight_Completed(object sender, EventArgs e)
         {
+            Storyboard outcome;
             if (TotalPower > zeon_zaku_power)
             {
-                //Show Win Animation
+                outcome = FindResource("WinFightScene") as Storyboard;
+                outcome.Begin();
             }
             else
             {
-                //Show Lose Animation
+                outcome = FindResource("LoseFightScene") as Storyboard;
+                outcome.Begin();
             }
         }
 
