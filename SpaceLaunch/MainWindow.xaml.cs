@@ -120,7 +120,7 @@ namespace SpaceLaunch
             isFirstFight = true;
 
             themeTimer = new DispatcherTimer();
-            themeTimer.Interval = TimeSpan.FromMilliseconds(2000);
+            themeTimer.Interval = TimeSpan.FromMilliseconds(4000);
             themeTimer.Tick += ThemeTimer_Tick;
             themeTimer.Start();
         }
@@ -298,7 +298,10 @@ namespace SpaceLaunch
                 NoteHolder.Visibility = Visibility.Hidden;
 
                 BeginFight();
-                new Thread(new ThreadStart(() => { PlayRecord(record); })).Start();
+                if (TotalPower > zeon_zaku_power)
+                    new Thread(new ThreadStart(() => { PlayTheme(); })).Start();
+                else
+                    new Thread(new ThreadStart(() => { PlayRecord(record); })).Start();
             }
 
         }
