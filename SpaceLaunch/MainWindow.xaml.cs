@@ -34,11 +34,15 @@ namespace SpaceLaunch
         private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "Gun.png", 4 }, { "Stick.png", -1 } };
         private string[] loadedCode = new string[] { "ehqq", "eeqe", "h", "hh", "qqe", "eqe", "qqq", "q", "e", "eq", "heq" };
 
+        //Fight Animation
+        private Storyboard fight;
+
+
 
         private List<Tuple<string, string>> errorCodes = new List<Tuple<string, string>>() {
             new Tuple<string, string>("e,q,e", "F,D,C"),
             new Tuple<string, string>("h,q,", "B,A,")};
-     
+
         int currOptIndex;
 
         //Interaction
@@ -52,7 +56,7 @@ namespace SpaceLaunch
         private string noteSelected;
 
 
-        private Tuple<string, string> record = new Tuple<string, string>("","");
+        private Tuple<string, string> record = new Tuple<string, string>("", "");
 
         //Sound Thread + Timing
         private Stopwatch watch;
@@ -71,11 +75,12 @@ namespace SpaceLaunch
         private int TotalPower;
         private int prepareLevel;
         private bool isFirstFight;
+        private int zeon_zaku_power = 2;
 
         public MainWindow()
         {
             //Music Box Storage
-            
+
 
 
             InitializeComponent();
@@ -99,7 +104,10 @@ namespace SpaceLaunch
             //Animation Resources + Init
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
-            Thread.Sleep(2000);
+
+            fight = FindResource("FightScene") as Storyboard;
+            fight.Completed += Fight_Completed;
+
 
             drumSound.Load();
 
@@ -116,6 +124,8 @@ namespace SpaceLaunch
             themeTimer.Tick += ThemeTimer_Tick;
             themeTimer.Start();
         }
+
+
 
         private void ThemeTimer_Tick(object sender, EventArgs e)
         {
@@ -237,7 +247,7 @@ namespace SpaceLaunch
                 Console.Beep(ScaleNotes["A"], 800);
                 Console.Beep(ScaleNotes["D"], 1000);
 
-                  
+
                 //Trigger Animation
 
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
@@ -255,7 +265,7 @@ namespace SpaceLaunch
             else
             {
                 //Play 'Wrong' Sound
-                Tuple<string,string> fetchedErrorCode = errorCodes[new Random().Next(0, errorCodes.Count)];
+                Tuple<string, string> fetchedErrorCode = errorCodes[new Random().Next(0, errorCodes.Count)];
                 PlayRecord(fetchedErrorCode);
 
                 TotalPower--;
@@ -298,25 +308,31 @@ namespace SpaceLaunch
             drumSound.Stop();
             disableInteraction = true;
             isFirstFight = false;
-            //Begin Animation of fight
-
             leave.Stop();
 
+            if (TotalPower > zeon_zaku_power)
+                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamGun.png", UriKind.Relative));
+            else
+                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamNoGun.png", UriKind.Relative));
 
-            int zeon_zaku_power = 2;
+            fight.Begin();
+
+        }
+
+
+        private void Fight_Completed(object sender, EventArgs e)
+        {
             if (TotalPower > zeon_zaku_power)
             {
-                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamGun.png", UriKind.Relative));
                 //Show Win Animation
             }
             else
             {
-                GundamImage.Source = new BitmapImage(new Uri(@"images/GundamNoGun.png", UriKind.Relative));
                 //Show Lose Animation
             }
-          }
+        }
 
-        private void PlayRecord(Tuple<string,string> recordNotes)
+                private void PlayRecord(Tuple<string, string> recordNotes)
         {
             int eighth = 200;
             int quarter = 800;
@@ -326,7 +342,7 @@ namespace SpaceLaunch
 
 
 
-            for (int i = 0;i < patternNotes.Length; i++)
+            for (int i = 0; i < patternNotes.Length; i++)
             {
                 string length = patternNotes[i];
                 string note = scaleNotes[i];
@@ -356,7 +372,7 @@ namespace SpaceLaunch
             {
 
                 isFirstClick = true;
-                   LoadStart();
+                LoadStart();
                 return;
             }
             if (disableInteraction)

@@ -25,83 +25,257 @@
         <Storyboard x:Key="FightScene">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ZeonZaku">
                 <EasingDoubleKeyFrame KeyTime="0" Value="440"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="440"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-38"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="-106"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="-112"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="-84"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="-112"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="-84"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="-112"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="-84"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="-112"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="-84"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="440"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="-38"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="-106"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="-112"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="-84"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="-112"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="-84"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="-112"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="-84"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-112"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="-84"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ZeonZaku">
                 <EasingDoubleKeyFrame KeyTime="0" Value="8"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="8"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="22"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="30"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="-22"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="-22"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="-22"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="-22"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="8"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="22"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="-22"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="-22"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="-22"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-22"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="36"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GundamImage">
                 <EasingDoubleKeyFrame KeyTime="0" Value="566"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="128"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="116"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-14"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="88"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="128">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="116">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="-14">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="88">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="88"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="88"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="GundamImage">
                 <EasingDoubleKeyFrame KeyTime="0" Value="32"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="18"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="-370"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="24"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="36"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="18">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="-370">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="24">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="36">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="36"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="GundamImage">
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="20.613"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.645"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="20.613"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0.645"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="20.613"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="0.645"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="20.613"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="0.645"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="20.613">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0.645">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="20.613">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="0.645">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="20.613">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="0.645">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="20.613"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="0.645"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ZeonZaku">
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.6" Value="-14.236"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.378"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="-14.236"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0.378"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="-14.236"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="0.378"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="-14.236"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="0.378"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="-14.236"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0.378"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.9" Value="-14.236"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="0.378"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="-14.236"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.1" Value="0.378"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-14.236"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.9" Value="0.378"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="WinFightScene">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ZeonZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-84"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-218">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-266"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="-302">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ZeonZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-52">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-72"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="-68">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GundamImage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="88"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="68">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="GundamImage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="36"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-202"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="-14">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="GundamImage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.645"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.645"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ZeonZaku">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.378"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="-79.86">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-101.459"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="-99.56">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
