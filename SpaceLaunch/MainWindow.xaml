@@ -356,7 +356,6 @@
     </Window.Resources>
     <Grid>
         <Grid x:Name="GameGrid" Visibility="Hidden" d:IsHidden="True">
-            <Image x:Name="Background" Source="images/AssemblyLine.png"></Image>
             <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -387,6 +386,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
+            <Image x:Name="Background" Source="images/AssemblyLine.png"></Image>
             <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
             <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
             <TextBlock x:Name="NoteHolder" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
@@ -407,8 +407,11 @@
 
         </Grid>
         <Grid x:Name="StartScene" Visibility="Visible" d:IsHidden="True">
-            <Image Source="Images/logo.png" Margin="56,-42,32,202"></Image>
-            <Image Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
+            <Image x:Name="Logo" Source="Images/logo.png" Margin="56,-42,32,202"></Image>
+            <Image x:Name="ArrowInstruct" Source="Images/ArrowInstruct.png" Margin="38,150,50,10"></Image>
+            <Image x:Name="AppearZaku" Source="images/zeonzakuappear.png"></Image>
+            <TextBlock x:Name="CodeDemo" Margin="172,63,172,337" FontFamily="/SpaceLaunch;component/Font/#Petrucci" Foreground="Black" FontSize="36" FontWeight="Medium" Text="eqe" TextAlignment="Center"/>
+            <TextBlock x:Name="NoteDemo" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
         </Grid>
         <Grid x:Name="EndScene" Visibility="Hidden">
             <Image x:Name="ZeonZaku" Source="Images/zeonzakufullbody.png" Margin="268,10,-268,-10" RenderTransformOrigin="0.5,0.5">
