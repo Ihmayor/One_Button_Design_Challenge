@@ -85,6 +85,7 @@
     <Content Include="drumbeat.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="images\AssemblyLine.png" />
     <Resource Include="images\Notes\note_B2.png" />
     <Resource Include="images\Notes\note_C2.png" />
     <Resource Include="images\Notes\note_A.png" />

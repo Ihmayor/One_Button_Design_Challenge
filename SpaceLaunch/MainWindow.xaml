@@ -356,6 +356,7 @@
     </Window.Resources>
     <Grid>
         <Grid x:Name="GameGrid" Visibility="Hidden" d:IsHidden="True">
+            <Image x:Name="Background" Source="images/AssemblyLine.png"></Image>
             <Image x:Name="CurrentOption" Margin="208,124,200,169" Source="Images/planet.png" RenderTransformOrigin="0.312,1.281">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -389,7 +390,7 @@
             <Image x:Name="ResultCheck" Margin="208,390,218,10" Source="Images/check_right.png" Visibility="Hidden"></Image>
             <TextBlock x:Name="MessageHolder" Margin="208,390,218,10"  FontSize="23" FontWeight="Medium" TextAlignment="Center" Text="Record Playing...."  Visibility="Hidden"/>
             <TextBlock x:Name="NoteHolder" Margin="172,390,172,10" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
-            <TextBlock x:Name="CodeHolder" Margin="172,53,172,347" FontFamily="/SpaceLaunch;component/Font/#Petrucci" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
+            <TextBlock x:Name="CodeHolder" Margin="172,63,172,337" FontFamily="/SpaceLaunch;component/Font/#Petrucci" Foreground="White" FontSize="36" FontWeight="Medium" TextAlignment="Center"/>
             <ProgressBar x:Name="PrepareProgress" Height="40" Width="140" Minimum="0" Maximum="7" Value="0" RenderTransformOrigin="0.5,0.5" Margin="475,214,-21,217" >
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
@@ -402,7 +403,7 @@
 
             </ProgressBar>
             <Image x:Name="ScaleHolder" Height="150" Width="150
-                   " Source="Images/Notes/note_a.png" Margin="434,304,10,17"></Image>
+                   " Source="Images/Notes/note_a.png" Margin="398,304,46,17"></Image>
 
         </Grid>
         <Grid x:Name="StartScene" Visibility="Visible" d:IsHidden="True">
