@@ -362,27 +362,27 @@
                 </DiscreteObjectKeyFrame>
                 <DiscreteObjectKeyFrame KeyTime="0:0:7.2">
                     <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="images/ver1button_up.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
                 <DiscreteObjectKeyFrame KeyTime="0:0:8.2">
                     <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="file:///C:/Users/User/documents/visual studio 2017/Projects/SpaceLaunch/SpaceLaunch/images/ver1button_down.png"/>
+                        <BitmapImage UriSource="images/ver1button_down.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
                 <DiscreteObjectKeyFrame KeyTime="0:0:9.2">
                     <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="images/ver1button_up.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
                 <DiscreteObjectKeyFrame KeyTime="0:0:10">
                     <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="file:///C:/Users/User/documents/visual studio 2017/Projects/SpaceLaunch/SpaceLaunch/images/ver1button_down.png"/>
+                        <BitmapImage UriSource="images/ver1button_down.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
                 <DiscreteObjectKeyFrame KeyTime="0:0:11.8">
                     <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\User\documents\visual studio 2017\Projects\SpaceLaunch\SpaceLaunch\images\ver1button_up.png"/>
+                        <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="images/ver1button_up.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
             </ObjectAnimationUsingKeyFrames>
@@ -667,7 +667,7 @@
                 </Image.RenderTransform>
             </Image>
         </Grid>
-        <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png"></Image>
-        <Image x:Name="TheButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
+        <Image x:Name="DisabledButton" Width="200" Height="100" Margin="0,250,0,0" Source="Images/ver1button_off.png" Visibility="Hidden"></Image>
+        <Image x:Name="TheButton" Width="200" Height="100" Margin="197,298,197,73" Source="Images/ver1button_up.png" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp"></Image>
     </Grid>
 </Window>
