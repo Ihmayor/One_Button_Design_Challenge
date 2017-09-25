@@ -359,6 +359,11 @@
             <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"  Storyboard.TargetName="TheButton" Storyboard.TargetProperty="(Image.Source)">
                 <DiscreteObjectKeyFrame KeyTime="0">
                     <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="images/ver1button_off.PNG" />
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:11">
+                    <DiscreteObjectKeyFrame.Value>
                         <BitmapImage UriSource="images/ver1button_up.PNG" />
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
@@ -387,6 +392,12 @@
                         <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="images/ver1button_up.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:18">
+                    <DiscreteObjectKeyFrame.Value>
+                        <BitmapImage UriSource="images/ver1button_off.PNG" />
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+
             </ObjectAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="AppearZaku">
                 <EasingDoubleKeyFrame KeyTime="0" Value="430.5"/>

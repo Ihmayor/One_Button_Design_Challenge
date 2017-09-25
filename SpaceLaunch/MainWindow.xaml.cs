@@ -161,8 +161,12 @@ namespace SpaceLaunch
         {
             if (!isFirstClick)
             {
-                soundThread = new Thread(new ThreadStart(() => { PlayTheme(); }));
-                soundThread.Start();
+                if (soundThread == null)
+                {
+                    soundThread = new Thread(new ThreadStart(() => { PlayTheme(); }));
+                    soundThread.Start();
+                }
+
             }
         }
 
@@ -196,6 +200,7 @@ namespace SpaceLaunch
             Thread.Sleep(800);
             Console.Beep(ScaleNotes["G"], 700);
             Console.Beep(ScaleNotes["G"], 700);
+
             if (soundThread != null)
             {
                 soundThread.Abort();
@@ -214,6 +219,7 @@ namespace SpaceLaunch
         {
             //Trigger Tutorial Animation
             warningsound.Play();
+            TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_off.png", UriKind.Relative));
             tutscene.Begin();
         }
 
@@ -349,6 +355,7 @@ namespace SpaceLaunch
                 MessageHolder.Visibility = Visibility.Visible;
                 EndScene.Visibility = Visibility.Visible;
                 TheButton.Visibility = Visibility.Hidden;
+                DisabledButton.Visibility = Visibility.Hidden;
                 DisabledButton.Visibility = Visibility.Visible;
                 NoteHolder.Visibility = Visibility.Hidden;
 
