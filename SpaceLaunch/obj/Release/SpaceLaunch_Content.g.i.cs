@@ -8,8 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/spacelaunch.exe")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("drumbeat.wav")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dubchords.wav")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("warning.wav")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("font/pe.ttf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("a.m4a")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("a.wav")]

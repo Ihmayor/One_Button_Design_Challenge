@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SpaceLaunch.exe" size="3295704">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SpaceLaunch.exe" size="3549656">
       <assemblyIdentity name="SpaceLaunch" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/5uK3OUQ4gLhyaLKIoXmFOxaHDMKtbAwQBVdK2J11Fg=</dsig:DigestValue>
+        <dsig:DigestValue>XtUpQbL2BjqRi7LW7KFyQbrQmkqXDKIE+Om5cKPh7MM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -80,6 +80,15 @@
       <dsig:DigestValue>tEMyYXuDZP7BWK6flcYAP5Bkb0jnvPA+ZAlukLuDhvE=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="dubchords.wav" size="2419248">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>YPkiJdoSbiDrDhtLjHvdqQuunWwAwMMKj1m/5XNlQ4o=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Font\pe.ttf" size="58968">
     <hash>
       <dsig:Transforms>
@@ -96,6 +105,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>rl5/qDc7Jz+tB+BIbOv9iMGPlRe6YJwrjmU09dnlPcs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Warning.wav" size="12511160">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AX/XL/hTEGbWljeFbPdAQ4lTBlFTD5+/HbyyXur/bLw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

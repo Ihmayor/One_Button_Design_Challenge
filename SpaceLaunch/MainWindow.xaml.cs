@@ -44,7 +44,7 @@ namespace SpaceLaunch
         int currOptIndex;
 
         //Carousel Options
-        private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "Gun.png", 4 }, { "Stick.png", -1 } };
+        private Dictionary<string, int> loadedOption = new Dictionary<string, int> { { "Gun.png", 4 }, { "Stick.png", -1 }, { "gundamhammer.png", 3}, { "lazersword.png", 4 } };
         
         //Possible rythm patterns
         private readonly string[] loadedCode = new string[] { "eqq","eee", "eeqe", "h", "hh", "qqe", "eqe", "qqq", "q", "e", "eq", "heq" };
@@ -78,7 +78,8 @@ namespace SpaceLaunch
         private Thread soundThread;
         private Thread drumThread;
         private Thread feedbackThread;
-        private SoundPlayer drumSound = new SoundPlayer("drumbeat.wav");
+        private SoundPlayer tempoSound = new SoundPlayer("dubchords.wav");
+        private SoundPlayer warningsound = new SoundPlayer("Warning.wav");
         private long savedTick;//Used for timing and holding notes
         private bool stopPlaying;//Prevents unwanted sounds arising from loops
 
@@ -95,7 +96,7 @@ namespace SpaceLaunch
         private int TotalPower;
         private int prepareLevel;
         private bool isFighting;
-        private int zeon_zaku_power = 2;
+        private readonly int zeon_zaku_power = 5;
 
         public MainWindow()
         {
@@ -110,6 +111,7 @@ namespace SpaceLaunch
 
             //Timer Used to check pauses between entries
             pauseTimer = new DispatcherTimer();
+            pauseTimer.Interval = TimeSpan.FromMilliseconds(3000);
             pauseTimer.Tick += PauseTimer_Tick;
 
             //Timer used to alternate note frequencies
@@ -132,8 +134,8 @@ namespace SpaceLaunch
             tutscene = FindResource("TutScene") as Storyboard;
             tutscene.Completed += Tutscene_Completed;
 
-            drumSound.Load();
-
+            tempoSound.Load();
+            warningsound.Load();
             //Sound Init and Sound Hold Init Vars
             noteFrequencySelected = "A";
             watch = new Stopwatch();
@@ -211,6 +213,7 @@ namespace SpaceLaunch
         private void LoadStart()
         {
             //Trigger Tutorial Animation
+            warningsound.Play();
             tutscene.Begin();
         }
 
@@ -222,7 +225,7 @@ namespace SpaceLaunch
             disableInteraction = false;
             GameGrid.Visibility = Visibility.Visible;
 
-            drumThread = new Thread(new ThreadStart(() => { drumSound.PlayLooping(); }));
+            drumThread = new Thread(new ThreadStart(() => { tempoSound.PlayLooping(); }));
             drumThread.Start();
 
             NextOption().Wait();
@@ -304,10 +307,7 @@ namespace SpaceLaunch
              }
             else if (enteredInput == "")
             {
-                //Console.Beep(ScaleNotes["A"], 500);
-                //Console.Beep(ScaleNotes["B"], 500);
-                //Console.Beep(ScaleNotes["C"], 500);
-
+               //Avoid doing anything with empty input
             }
             else
             {
@@ -363,7 +363,7 @@ namespace SpaceLaunch
 
         private void BeginFight()
         {
-            drumSound.Stop();
+            tempoSound.Stop();
             disableInteraction = true;
             isFighting = true;
             leave.Stop();
@@ -431,8 +431,7 @@ namespace SpaceLaunch
             if (!isFirstClick)
             {
 
-                isFirstClick = true;   
-                
+                isFirstClick = true;
                 LoadStart();
                 return;
             }
@@ -493,10 +492,6 @@ namespace SpaceLaunch
                     record = new Tuple<string, string>(record.Item1 + ",h", record.Item2 + "," + noteFrequencySelected);
                 }
             }
-            else if (diff >= 3000)
-            {
-                await CheckNoteCountMatch();
-            }
 
             if (NoteHolder.Text.Length >= 5)
             {
@@ -521,7 +516,6 @@ namespace SpaceLaunch
 
             if (!disableInteraction)
             {
-                pauseTimer.Interval = TimeSpan.FromMilliseconds(4000);
                 pauseTimer.Start();
             }
         }
@@ -548,11 +542,15 @@ namespace SpaceLaunch
             else if (disableInteraction)
                 return;
 
+            if (NoteHolder.Text != "")
+            {
+                await CheckNoteCountMatch();
+            }
 
+            NoteHolder.Text = "";
 
             //Increase Index and make sure it loops around
-            currOptIndex++;
-            currOptIndex %= loadedOption.Count;
+            currOptIndex = new Random().Next(0, loadedOption.Count);
 
             //Set Visible Carousel Option to cover Single Option
             //Reset to original state
@@ -574,7 +572,7 @@ namespace SpaceLaunch
 
         private void LeaveOption_Completed(object sender, EventArgs e)
         {
-            Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
+            Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex ].Key, UriKind.Relative));
 
             //Overlay Option Image
             CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
@@ -589,6 +587,31 @@ namespace SpaceLaunch
 
         }
 
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            tempoSound.Stop();
+            if (soundThread != null)
+            {
+                soundThread.Abort();
+                soundThread = null;
+            }
+            if (drumThread != null)
+            {
+                drumThread.Abort();
+                drumThread = null;
+            }
 
+            if (feedbackThread !=null)
+            {
+                feedbackThread.Abort();
+                feedbackThread = null;
+            }
+
+            watch.Stop();
+            pauseTimer.Stop();
+            scaleTimer.Stop();
+            themeTimer.Stop();
+            feedbackTimer.Stop();
+        }
     }
 }
