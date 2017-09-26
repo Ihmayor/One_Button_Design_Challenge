@@ -68,7 +68,10 @@ namespace SpaceLaunch
             { "B2", 988 },
             { "C2", 1046 } };
 
+        //Keep track of place as it loops through the frequency dictionary
         private int currentNoteFrequencyIndex;
+
+        //Current frequency of pressed notes
         private string noteFrequencySelected;
 
         //Record of notes played
@@ -98,16 +101,20 @@ namespace SpaceLaunch
         private bool isFighting;
         private readonly int zeon_zaku_power = 5;
 
+        private bool finishedAnim;
+
+        //Variables to keep track of user's entered rhythm 
+        private int halfNoteCount;
+        private int quarterNoteCount;
+        private int eighthNoteCount;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = this;
-
+            //Index Inits
             currentNoteFrequencyIndex = 0;
             currOptIndex = 0;
-            finishedAnim = true;
-
 
             //Timer Used to check pauses between entries
             pauseTimer = new DispatcherTimer();
@@ -128,22 +135,30 @@ namespace SpaceLaunch
             leave = FindResource("Leave") as Storyboard;
             leave.Completed += LeaveOption_Completed;
 
+            //Load End Fight Scene Animation
             fight = FindResource("FightScene") as Storyboard;
             fight.Completed += Fight_Completed;
 
+            //Load Tutorial Scene
             tutscene = FindResource("TutScene") as Storyboard;
             tutscene.Completed += Tutscene_Completed;
 
+            //Load Sound to keep tempo
             tempoSound.Load();
+            //Load initial intro sound
             warningsound.Load();
+
             //Sound Init and Sound Hold Init Vars
             noteFrequencySelected = "A";
             watch = new Stopwatch();
 
+            //Various bools to prevent count checks from happening when they don't need to happen
             disableInteraction = true;
             isFirstClick = false;
             isFighting = false;
+            finishedAnim = true;
 
+            //Timer loops playing the theme as it waits for the user's input
             themeTimer = new DispatcherTimer();
             themeTimer.Interval = TimeSpan.FromMilliseconds(7000);
             themeTimer.Tick += ThemeTimer_Tick;
@@ -152,13 +167,17 @@ namespace SpaceLaunch
 
         private void FeedbackTimer_Tick(object sender, EventArgs e)
         {
+            //Rehid the feedback as soon as the user has seen it
             ResultCheck.Visibility = Visibility.Hidden;
+
             //We only want this to happen once
             feedbackTimer.Stop();
         }
 
+        //Loop the playing of the theme 
         private void ThemeTimer_Tick(object sender, EventArgs e)
         {
+            //Prevent overlapping threads of the theme playing
             if (!isFirstClick)
             {
                 if (soundThread == null)
@@ -170,6 +189,7 @@ namespace SpaceLaunch
             }
         }
 
+        //Hardcoded Notes, Pauses of the first bit of Mobile Suit Gundam Theme
         private void PlayTheme()
         {
             Console.Beep(ScaleNotes["E"], 700);
@@ -201,6 +221,7 @@ namespace SpaceLaunch
             Console.Beep(ScaleNotes["G"], 700);
             Console.Beep(ScaleNotes["G"], 700);
 
+            //Clean up the used thread.
             if (soundThread != null)
             {
                 soundThread.Abort();
@@ -208,6 +229,7 @@ namespace SpaceLaunch
             }
         }
 
+        //Loop through the scales of notes
         private void ScaleTimer_Tick(object sender, EventArgs e)
         {
             currentNoteFrequencyIndex++;
@@ -215,6 +237,8 @@ namespace SpaceLaunch
             noteFrequencySelected = ScaleNotes.ToList<KeyValuePair<string, int>>()[currentNoteFrequencyIndex].Key;
             ScaleHolder.Source = new BitmapImage(new Uri(@"images/Notes/note_" + noteFrequencySelected + ".png", UriKind.Relative));
         }
+
+        //Load the intor of the game
         private void LoadStart()
         {
             //Trigger Tutorial Animation
@@ -223,6 +247,7 @@ namespace SpaceLaunch
             tutscene.Begin();
         }
 
+        //Upon finishing the tutorial animation, load up the main game
         private void Tutscene_Completed(object sender, EventArgs e)
         {
             StartScene.Visibility = Visibility.Hidden;
@@ -240,12 +265,13 @@ namespace SpaceLaunch
             scaleTimer.Start();
         }
 
+        //If a long pause occurrs check if the users entries are correct
         private void PauseTimer_Tick(object sender, EventArgs e)
         {
             CheckNoteCountMatch().Wait();
         }
 
-
+        //Play the tone given and hold it until interrupted
         private void PlayTone(string Note)
         {
             int frequency = ScaleNotes[Note];
@@ -256,16 +282,13 @@ namespace SpaceLaunch
             }
         }
 
+        //Stop the tone from playing
         private void StopTone()
         {
             stopPlaying = true;
         }
 
-
-        private int halfNoteCount;
-        private int quarterNoteCount;
-        private int eighthNoteCount;
-
+        //Clear the notes counts after they have been checked
         private void ClearNoteCount()
         {
             halfNoteCount = 0;
@@ -273,6 +296,7 @@ namespace SpaceLaunch
             eighthNoteCount = 0;
         }
 
+        //Check if the user's input matches the rhythm shown on screen
         private async Task CheckNoteCountMatch()
         {
             if (isFighting)
@@ -289,13 +313,15 @@ namespace SpaceLaunch
             //Set the bool if the code is a match
             if (currentCode == enteredInput)
             {
-                //Play Ding Right Sound
+                //Play Ding Right Sound on a different thread
+                //Ensure the thread is being used by something else.
                 if (feedbackThread != null)
                 {
                     feedbackThread.Abort();
                     feedbackThread = null;
                 }
 
+                //Start new thread and play feedback sounds
                 feedbackThread = new Thread(new ThreadStart(() => {
                     Console.Beep(ScaleNotes["E"], 200);
                     Console.Beep(ScaleNotes["G"], 500);
@@ -305,9 +331,10 @@ namespace SpaceLaunch
 
                 feedbackThread.Start();
 
-
+                //Show Feedback Checkmark to inform the user they have entered correctly
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_right.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
+                //Increase Gundam Power based on item's attributes
                 TotalPower += loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Value;
                 feedbackTimer.Start();
              }
@@ -318,51 +345,65 @@ namespace SpaceLaunch
             else
             {
                 //Play 'Wrong' Sound
-                ///PUT ON DIFFERENT THREAD
+                //Placed upon a different thread to avoid conflicts
                 Tuple<string, string> fetchedErrorCode = errorCodes[new Random().Next(0, errorCodes.Count)];
+                //Ensure nothing else is using the thread
                 if (feedbackThread != null)
                 {
                     feedbackThread.Abort();
                     feedbackThread = null;
                 }
-
                 feedbackThread = new Thread(new ThreadStart(() => { PlayRecord(fetchedErrorCode);}));
                 feedbackThread.Start();
 
+                //Decrease power automatically when mistakes are made
                 TotalPower--;
 
+                //Give user feedback that their entry was wrong
                 ResultCheck.Source = new BitmapImage(new Uri(@"images/check_wrong.png", UriKind.Relative));
                 ResultCheck.Visibility = Visibility.Visible;
                 feedbackTimer.Start();
 
             }
+            
 
+            //Every entry is one step closer to battle.
             if (enteredInput != "")
             {
                 prepareLevel++;
                 PrepareProgress.Value++;
             }
+
             //Reset Any Button Disabling and Clear Note Count
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_up.png", UriKind.Relative));
             ClearNoteCount();
             NoteHolder.Text = "";
             if (prepareLevel > 6 && !isFighting)
             {
+                //Check if we are prepared to fight and not already fighting the enemy
+
+                //Stop any more rhythm checks
                 pauseTimer.Stop();
-                //drumSound.Stop(); 
-                //Disabled UI elements in this thread instead of the async thread.
+
+                //Disabled necessary UI elements in this thread instead of the async thread.
                 GameGrid.Visibility = Visibility.Hidden;
                 MessageHolder.Visibility = Visibility.Visible;
                 EndScene.Visibility = Visibility.Visible;
                 TheButton.Visibility = Visibility.Hidden;
                 DisabledButton.Visibility = Visibility.Hidden;
                 NoteHolder.Visibility = Visibility.Hidden;
+
+                //Clean up Feedbackthread
                 if (feedbackThread != null)
                 {
                     feedbackThread.Abort();
                     feedbackThread = null;
                 }
+                
+                //Init various fight variables and trigger the animation
                 BeginFight();
+
+                //Play triumphant gundam theme if player has won, playback their potentially messy play record.
                 if (TotalPower > zeon_zaku_power)
                     new Thread(new ThreadStart(() => { PlayTheme(); })).Start();
                 else
@@ -371,6 +412,8 @@ namespace SpaceLaunch
 
         }
 
+
+        //Fight begins so we have both trigger the fighting animations as well as disable any interactive elements
         private void BeginFight()
         {
             tempoSound.Stop();
@@ -387,7 +430,7 @@ namespace SpaceLaunch
 
         }
 
-
+        //Upon Fighting animation completed, display the outcome animation
         private void Fight_Completed(object sender, EventArgs e)
         {
             Storyboard outcome;
@@ -403,7 +446,10 @@ namespace SpaceLaunch
             }
         }
 
-                private void PlayRecord(Tuple<string, string> recordNotes)
+
+        //Helper method that plays the string of notes according to their specifications
+        //Pauses are not accounted for
+        private void PlayRecord(Tuple<string, string> recordNotes)
         {
             int eighth = 200;
             int quarter = 800;
@@ -434,7 +480,7 @@ namespace SpaceLaunch
         }
 
 
-
+        //ON BUTTON CLICK
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -466,6 +512,7 @@ namespace SpaceLaunch
 
         }
 
+        //On BUTTON RELEASE
         private async void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Console.Beep(1000, 1);
@@ -529,11 +576,15 @@ namespace SpaceLaunch
                 pauseTimer.Start();
             }
         }
+
+        //ON BUTTON HOVER PROVIDE FEEDBACK TO USER THAT THE BUTTON IS PRESSABLE
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
             TheButton.Source = new BitmapImage(new Uri(@"images/ver1button_over.png", UriKind.Relative));
         }
 
+
+        //ON BUTTON LEAVE HOVER PROVIDE FEEDBACK TO USER THAT THE BUTTON IS PRESSABLE
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
             if (isHeld)
@@ -542,11 +593,12 @@ namespace SpaceLaunch
         }
 
 
-        private bool finishedAnim;
-
-
+        //Load up next option in the carousel.
+        //Trigger leave animation 
         public async Task NextOption()
         {
+            //Check for note entries when option has changed
+            //Or alternatively disable this function when necessary
             if (!finishedAnim)
                 return;
             else if (disableInteraction)
@@ -580,6 +632,7 @@ namespace SpaceLaunch
             //Recover Carousel and pull back
         }
 
+        //When the Animation completes this function ensures the carousel of options loops 
         private void LeaveOption_Completed(object sender, EventArgs e)
         {
             Option1.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex ].Key, UriKind.Relative));
@@ -587,7 +640,6 @@ namespace SpaceLaunch
             //Overlay Option Image
             CurrentOption.Source = new BitmapImage(new Uri(@"/images/" + loadedOption.ToList<KeyValuePair<string, int>>()[currOptIndex].Key, UriKind.Relative));
             CurrentOption.Visibility = Visibility.Visible;
-
 
             Option1.Visibility = Visibility.Hidden;
             Option2.Visibility = Visibility.Hidden;
@@ -597,6 +649,8 @@ namespace SpaceLaunch
 
         }
 
+
+        //ENSURE THAT ALL THREADS ARE CLOSED AND CLEANED UP WHEN APPLICATION IS LEFT!
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             tempoSound.Stop();
