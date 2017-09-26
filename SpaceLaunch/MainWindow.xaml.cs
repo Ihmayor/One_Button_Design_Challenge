@@ -356,9 +356,12 @@ namespace SpaceLaunch
                 EndScene.Visibility = Visibility.Visible;
                 TheButton.Visibility = Visibility.Hidden;
                 DisabledButton.Visibility = Visibility.Hidden;
-                DisabledButton.Visibility = Visibility.Visible;
                 NoteHolder.Visibility = Visibility.Hidden;
-
+                if (feedbackThread != null)
+                {
+                    feedbackThread.Abort();
+                    feedbackThread = null;
+                }
                 BeginFight();
                 if (TotalPower > zeon_zaku_power)
                     new Thread(new ThreadStart(() => { PlayTheme(); })).Start();

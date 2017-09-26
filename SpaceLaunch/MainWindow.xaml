@@ -392,7 +392,7 @@
                         <BitmapImage CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="images/ver1button_up.png"/>
                     </DiscreteObjectKeyFrame.Value>
                 </DiscreteObjectKeyFrame>
-                <DiscreteObjectKeyFrame KeyTime="0:0:18">
+                <DiscreteObjectKeyFrame KeyTime="0:0:20">
                     <DiscreteObjectKeyFrame.Value>
                         <BitmapImage UriSource="images/ver1button_off.PNG" />
                     </DiscreteObjectKeyFrame.Value>
