@@ -1,5 +1,5 @@
 # Space Launch Music Box 
-A single button input rythm game that would represent my assigned client, Michael Hung. The challenge of this project was to create one button interactive experience based on a single interview the client. It is a Windows Platform application with a mouse-click button input.
+A single button input rythm game that would represent my assigned client, Michael Hung. The challenge of this project was to create a one button interactive experience based on a single interview with the client. It is a Windows Platform application with mouse-click button input.
 
 All third party creative common resources that were used are listed in: Sources.txt
 WPF project solution only.
